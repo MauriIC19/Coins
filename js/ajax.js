@@ -166,6 +166,8 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
 
   //Variable que contiene la cantidad de frecuencias
   n = Object.keys(dJSON).length;
+
+  
   // x = localStorage.getItem('periodos');
   // x = x.split(',');
   // x = x[n-2].replace('"','');
@@ -173,40 +175,41 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
   // x[2] = x[2].replace('"', '');
   // x[2] = parseInt(x[2])+1;
 
-  //PMS
-  if (k && !j) {
-    k = parseInt(k);
-    n = n + k - 1;
-    console.log(n);
-  }
+  // //PMS
+  // if (k && !j) {
+  //   k = parseInt(k);
+  //   n = n + k - 1;
+  //   console.log(n);
+  // }
+  //
+  // //PMD
+  // if (k && j && !m) {
+  //   k = parseInt(k);
+  //   n = n +  k + 1;
+  //   console.log(n);
+  // }
+  //
+  // //PMDA
+  // if (k && j && m) {
+  //   k = parseInt(k);
+  //   n = n + k +1;
+  //   console.log(n);
+  // }
+  //
+  // //PTMAC
+  // if (k && !j && !m && tipo != "PMS") {
+  //   k = parseInt(k);
+  //   n = n+1;
+  //   console.log(n);
+  // }
+  //
+  // if (a) {
+  //   n = n +1;
+  //   console.log(n);
+  // }
 
-  //PMD
-  if (k && j && !m) {
-    k = parseInt(k);
-    n = n +  k + 1;
-    console.log(n);
-  }
-
-  //PMDA
-  if (k && j && m) {
-    k = parseInt(k);
-    n = n + k +1;
-    console.log(n);
-  }
-
-  //PTMAC
-  if (k && !j && !m && tipo != "PMS") {
-    k = parseInt(k);
-    n = n+1;
-    console.log(n);
-  }
-
-  if (a) {
-    n = n +1;
-    console.log(n);
-  }
-
-  for (i = 0; i < n; i++) {
+  //Volver n dinámica
+  for (i = 0; i < 119; i++) {
      row = tabla.rows[i];
      cell1 = row.insertCell();
      cell1.classList.add(tipo);
