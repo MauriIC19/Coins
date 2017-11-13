@@ -39,3 +39,7 @@ table{
   text-align: center;
   width: 100%;
 }
+
+.no-visible{
+  display: none;
+}

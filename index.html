@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/estilos.css">
   <title>Dashboard</title>
 </head>
-<body>
+<body onload="deshabilitarBotones()">
   <header><h2>Dashboard</h2></header>
   <div id="tablas" class="seccion">
     <div id="opciones">
@@ -15,33 +15,39 @@
         <option value="0">Ethereum</option>
         <option value="1">Bitcoin</option>
       </select>
+
       <button onclick="cargarPronostico(this, 'PS')">PS</button>
+      <button onclick="habilitarCampo(this, 'PMS')">PMS</button>
+      <button onclick="habilitarCampo(this, 'PMD')">PMD</button>
+      <button onclick="habilitarCampo(this, 'PMDA')">PMDA</button>
 
-      <button onclick="cargarPronostico(this, 'PMS')">PMS</button>
+      <label id="kl" for="k" class="no-visible">K:</label>
+      <input id="k" class="no-visible" type="text">
+      <button id="kb" class="no-visible" onclick="cargarPronostico(this, 'PMS')">Calcular</button>
 
-      <button onclick="cargarPronostico(this, 'PMD')">PMD</button>
+      <label for="j" id="jl" class="no-visible">J:</label>
+      <input id="j" class="no-visible" type="text">
+      <button id="jb" class="no-visible" onclick="cargarPronostico(this, 'PMD')">Calcular</button>
 
-      <button onclick="cargarPronostico(this, 'PMDA')">PMDA</button>
+      <label for="m" id="ml" class="no-visible">M:</label>
+      <input id="m" class="no-visible" type="text">
+      <button id="mb" class="no-visible" onclick="cargarPronostico(this, 'PMDA')">Calcular</button>
 
-      k: <input id="k" type="text">
-      j: <input id="j" type="text">
-      m: <input id="m" type="text">
+      <button onclick="cargarPronostico(this, 'PTMAC')">PTMAC</button>
+      <button onclick="habilitarCampo(this, 'SE')">SE</button>
 
-      <button  onclick="cargarPronostico(this, 'PTMAC')">PTMAC</button>
-
-      <button  onclick="cargarPronostico(this, 'SE')">SE</button>
-
-      <select required id="p">
+      <select required id="p" class="no-visible" onchange="habilitarCampo(this, 'SE', this.value)">
         <option value="" selected disabled hidden>Selecciona...</option>
         <option value="PS">PS</option>
         <option value="PMS">PMS</option>
         <option value="PMD">PMD</option>
         <option value="PMDA">PMDA</option>
         <option value="PTMAC">PTMAC</option>
-        <option value="SE">SE</option>
       </select>
 
-      a: <input id="a" type="text">
+      <label for="a" class="no-visible">A:</label>
+      <input id="a" class="no-visible" type="text">
+      <button id="ab" class="no-visible" onclick="cargarPronostico(this, 'SE')">Calcular</button>
     </div>
     <table id="tablaDatos">
       <thead>

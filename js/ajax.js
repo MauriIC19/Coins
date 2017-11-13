@@ -28,6 +28,10 @@ function cargarDatos(tipo){
      localStorage.setItem('datos', localStorage.getItem('datos')+"]");
     }
   };
+  btn = document.querySelectorAll('button');
+  for (var i = 0; i < btn.length; i++) {
+    btn[i].disabled = false;
+  }
 }
 
 function cargarPronostico(e, tipo){
@@ -167,7 +171,7 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
   //Variable que contiene la cantidad de frecuencias
   n = Object.keys(dJSON).length;
 
-  
+
   // x = localStorage.getItem('periodos');
   // x = x.split(',');
   // x = x[n-2].replace('"','');
@@ -255,4 +259,121 @@ function borrarTabla(e, tipo){
   e.onclick = function (){
       cargarPronostico(e, tipo);
   };
+}
+
+function deshabilitarBotones(){
+  btn = document.querySelectorAll('button');
+  for (var i = 0; i < btn.length; i++) {
+    btn[i].disabled = true;
+  }
+}
+
+function  habilitarCampo(e, p, s=null){
+  if (p) {
+    switch (p) {
+      case 'PMS':
+        deshabilitarCampos(e, p, s);
+        document.getElementById('kl').classList.remove('no-visible');
+        document.getElementById('k').classList.remove('no-visible');
+        document.getElementById('k').value = "";
+        document.getElementById('kb').classList.remove('no-visible');
+        e.onclick = function (){
+          deshabilitarCampos(e, p, s);
+        }
+        break;
+      case 'PMD':
+        deshabilitarCampos(e, p, s);
+        document.getElementById('kl').classList.remove('no-visible');
+        document.getElementById('k').classList.remove('no-visible');
+        document.getElementById('k').value = "";
+        document.getElementById('kb').classList.add('no-visible');
+        document.getElementById('jl').classList.remove('no-visible');
+        document.getElementById('j').classList.remove('no-visible');
+        document.getElementById('j').value = "";
+        document.getElementById('jb').classList.remove('no-visible');
+        e.onclick = function (){
+          deshabilitarCampos(e, p, s);
+        }
+        break;
+      case 'PMDA':
+        deshabilitarCampos(e, p, s);
+        document.getElementById('kl').classList.remove('no-visible');
+        document.getElementById('k').classList.remove('no-visible');
+        document.getElementById('k').value = "";
+        document.getElementById('kb').classList.add('no-visible');
+        document.getElementById('jl').classList.remove('no-visible');
+        document.getElementById('j').classList.remove('no-visible');
+        document.getElementById('j').value = "";
+        document.getElementById('jb').classList.add('no-visible');
+        document.getElementById('ml').classList.remove('no-visible');
+        document.getElementById('m').classList.remove('no-visible');
+        document.getElementById('m').value = "";
+        document.getElementById('mb').classList.remove('no-visible');
+        e.onclick = function (){
+          deshabilitarCampos(e, p, s);
+        }
+        break;
+      default:
+
+        break;
+
+    }
+  }
+}
+
+function deshabilitarCampos(e, p, s=null){
+  if (p) {
+    switch (p) {
+      case 'PMS':
+        document.getElementById('kl').classList.add('no-visible');
+        document.getElementById('k').classList.add('no-visible');
+        document.getElementById('k').value = "";
+        document.getElementById('kb').classList.add('no-visible');
+        document.getElementById('jl').classList.add('no-visible');
+        document.getElementById('j').classList.add('no-visible');
+        document.getElementById('j').value = "";
+        document.getElementById('jb').classList.add('no-visible');
+        document.getElementById('ml').classList.add('no-visible');
+        document.getElementById('m').classList.add('no-visible');
+        document.getElementById('m').value = "";
+        document.getElementById('mb').classList.add('no-visible');
+        e.onclick = function (){
+          habilitarCampo(e, p, s);
+        }
+        break;
+      case 'PMD':
+        document.getElementById('kl').classList.add('no-visible');
+        document.getElementById('k').classList.add('no-visible');
+        document.getElementById('k').value = "";
+        document.getElementById('jl').classList.add('no-visible');
+        document.getElementById('j').classList.add('no-visible');
+        document.getElementById('j').value = "";
+        document.getElementById('ml').classList.add('no-visible');
+        document.getElementById('m').classList.add('no-visible');
+        document.getElementById('m').value = "";
+        document.getElementById('mb').classList.add('no-visible');
+        e.onclick = function (){
+          habilitarCampo(e, p, s);
+        }
+        break;
+      case 'PMDA':
+        document.getElementById('kl').classList.add('no-visible');
+        document.getElementById('k').classList.add('no-visible');
+        document.getElementById('k').value = "";
+        document.getElementById('jl').classList.add('no-visible');
+        document.getElementById('j').classList.add('no-visible');
+        document.getElementById('j').value = "";
+        document.getElementById('ml').classList.add('no-visible');
+        document.getElementById('m').classList.add('no-visible');
+        document.getElementById('m').value = "";
+        document.getElementById('mb').classList.add('no-visible');
+        e.onclick = function (){
+          habilitarCampo(e, p, s);
+        }
+        break;
+      default:
+
+        break;
+    }
+  }
 }
