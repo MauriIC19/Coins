@@ -75,7 +75,7 @@ function PMD($arr, $n, $k=null, $j=null, $m=null, $a=null, $pms=null, $pmd=null,
 
 function PMDA($arr, $n, $k=null, $j=null, $m=null, $a=null, $pms=null, $pmd=null, $inicio=null, $serie=null){
 //PMDA
-  	$pmda[][] = array();
+  	$pmda = array();
   	for($i = $k+$j; $i <= $n; $i++){
   		$a = (2*$pms[$i][0])-$pmd[$i][0];
   		$b = (2*abs($pms[$i][0]-$pmd[$i][0]))/($n-1);

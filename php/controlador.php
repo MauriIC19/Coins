@@ -47,7 +47,7 @@ if (isset($_POST['pronostico'])) {
         $pms = PMS($arr, $n, $k);
         $pmd = PMD($arr, $n, $k, $j, null, null,$pms);
         $pmda = PMDA($arr, $n, $k, $j, $m, null, $pms, $pmd);
-        echo json_encode($pmd);
+        echo json_encode($pmda);
         break;
 
       case 'PTMAC':
