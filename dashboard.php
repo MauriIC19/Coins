@@ -65,6 +65,9 @@
       <thead><tr id="titulosErrores"></tr></thead>
       <tbody id="errores"></tbody>
     </table>
+    <h2 id="mejor">
+      
+    </h2>
   </div>
   <div id="graficas" class="seccion"></div>
 </body>
