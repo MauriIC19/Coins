@@ -36,6 +36,7 @@ function cargarDatos(tipo){
        i+1 == dJSON.length ? localStorage.setItem('periodos', localStorage.getItem('periodos')+'"'+dJSON[i].periodo+'"') : localStorage.setItem('periodos', localStorage.getItem('periodos')+'"'+dJSON[i].periodo+'"'+",");
      }
      localStorage.setItem('datos', localStorage.getItem('datos')+"]");
+     localStorage.getItem('Errores') ? localStorage.removeItem('Errores') : "";
     }
   };
   btn = document.querySelectorAll('button');
@@ -284,6 +285,8 @@ function generarTablaErrores(dJSON, tipo){
       tipo ? cell3.innerHTML = "<b>"+tipo+"</b>" : cell3.innerHTML = "-";
       dJSON[n][0] ? cell4.innerHTML = parseFloat(dJSON[n][0]).toFixed(2) : cell5.innerHTML = "-";
       dJSON[n][1] ? cell5.innerHTML = parseFloat(dJSON[n][1]).toFixed(2) : cell5.innerHTML = "-";
+      localStorage.getItem('Errores') ? "" : localStorage.setItem("Errores", tipo+','+dJSON[n][1]);
+      getMejor(dJSON, tipo);
     }
     else{
       cell3.innerHTML = "-";
@@ -292,11 +295,24 @@ function generarTablaErrores(dJSON, tipo){
     }
 }
 
+function getMejor(dJSON, tipo){
+  mejor = localStorage.getItem('Errores');
+  error = mejor.split(',');
+  dJSON[n][1] < error[1] ? localStorage.setItem("Errores", '"'+tipo+'",'+dJSON[n][1]) : "";
+  mejor = localStorage.getItem('Errores');
+  error = mejor.split(',');
+  txt = document.getElementById('mejor');
+  txt.innerHTML = "Mejor Pronóstico: "+error[0];
+}
+
 function borrarTabla(e, tipo){
   cells = document.querySelectorAll('.'+tipo);
   for (var i = 0; i < cells.length; i++) {
     cells[i].remove();
   }
+  mejor = localStorage.getItem('Errores');
+  pronostico = mejor.split(",");
+  pronostico[0] == tipo ? localStorage.removeItem('Errores') : "";
   e.onclick = function (){
       cargarPronostico(e, tipo);
   };
