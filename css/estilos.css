@@ -41,5 +41,5 @@ table{
 }
 
 .no-visible{
-  display: none;
+  visibility: hidden;
 }

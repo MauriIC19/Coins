@@ -28,26 +28,23 @@
       </select>
 
       <button onclick="cargarPronostico(this, 'PS')">PS</button>
-      <button onclick="habilitarCampo(this, 'PMS')">PMS</button>
-      <button onclick="habilitarCampo(this, 'PMD')">PMD</button>
-      <button onclick="habilitarCampo(this, 'PMDA')">PMDA</button>
+      <button onclick="cargarPronostico(this, 'PMS')">PMS</button>
+      <button onclick="cargarPronostico(this, 'PMD')">PMD</button>
+      <button onclick="cargarPronostico(this, 'PMDA')">PMDA</button>
 
-      <label id="kl" for="k" class="no-visible">K:</label>
-      <input id="k" class="no-visible" type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-      <button id="kb" class="no-visible" onclick="cargarPronostico(this, 'PMS')">Calcular</button>
+      <label id="kl" for="k">K:</label>
+      <input id="k"  type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
 
-      <label for="j" id="jl" class="no-visible">J:</label>
-      <input id="j" class="no-visible" type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-      <button id="jb" class="no-visible" onclick="cargarPronostico(this, 'PMD')">Calcular</button>
+      <label for="j" id="jl" >J:</label>
+      <input id="j"  type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
 
-      <label for="m" id="ml" class="no-visible">M:</label>
-      <input id="m" class="no-visible" type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-      <button id="mb" class="no-visible" onclick="cargarPronostico(this, 'PMDA')">Calcular</button>
+      <label for="m" id="ml" >M:</label>
+      <input id="m"  type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
 
       <button onclick="cargarPronostico(this, 'PTMAC')">PTMAC</button>
-      <button onclick="habilitarCampo(this, 'SE')">SE</button>
+      <button onclick="cargarPronostico(this, 'SE')">SE</button>
 
-      <select required id="p" class="no-visible" onchange="habilitarCampo(this, 'SE', this.value)">
+      <select required id="p">
         <option value="" selected disabled hidden>Selecciona...</option>
         <option value="PS">PS</option>
         <option value="PMS">PMS</option>
@@ -56,9 +53,8 @@
         <option value="PTMAC">PTMAC</option>
       </select>
 
-      <label  id="al" for="a" class="no-visible">A:</label>
-      <input id="a" class="no-visible" type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-      <button id="ab" class="no-visible" onclick="cargarPronostico(this, 'SE')">Calcular</button>
+      <label  id="al" for="a" >A:</label>
+      <input id="a"  type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
     </div>
 
     <table id="tablaDatos">

@@ -252,143 +252,157 @@ function deshabilitarBotones(){
   }
 }
 
-function  habilitarCampo(e, p, s=null){
-  if (p) {
-    switch (p) {
-      case 'PMS':
-        deshabilitarCampos(e, p, s);
-        document.getElementById('kl').classList.remove('no-visible');
-        document.getElementById('k').classList.remove('no-visible');
-        document.getElementById('k').value = "";
-        s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('kb').classList.remove('no-visible');
-        e.onclick = function (){
-          deshabilitarCampos(e, p, s);
-        }
-        if (s) {
-          document.getElementById('a').classList.remove('no-visible');
-          document.getElementById('al').classList.remove('no-visible');
-          document.getElementById('p').classList.add('no-visible');
-        }
-        break;
-      case 'PMD':
-        deshabilitarCampos(e, p, s);
-        document.getElementById('kl').classList.remove('no-visible');
-        document.getElementById('k').classList.remove('no-visible');
-        document.getElementById('k').value = "";
-        document.getElementById('kb').classList.add('no-visible');
-        document.getElementById('jl').classList.remove('no-visible');
-        document.getElementById('j').classList.remove('no-visible');
-        document.getElementById('j').value = "";
-        s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('jb').classList.remove('no-visible');
-        e.onclick = function (){
-          deshabilitarCampos(e, p, s);
-        }
-        if (s) {
-          document.getElementById('a').classList.remove('no-visible');
-          document.getElementById('al').classList.remove('no-visible');
-          document.getElementById('p').classList.add('no-visible');
-        }
-        break;
-      case 'PMDA':
-        deshabilitarCampos(e, p, s);
-        document.getElementById('kl').classList.remove('no-visible');
-        document.getElementById('k').classList.remove('no-visible');
-        document.getElementById('k').value = "";
-        document.getElementById('kb').classList.add('no-visible');
-        document.getElementById('jl').classList.remove('no-visible');
-        document.getElementById('j').classList.remove('no-visible');
-        document.getElementById('j').value = "";
-        document.getElementById('jb').classList.add('no-visible');
-        document.getElementById('ml').classList.remove('no-visible');
-        document.getElementById('m').classList.remove('no-visible');
-        document.getElementById('m').value = "";
-        s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('mb').classList.remove('no-visible');
-        e.onclick = function (){
-          deshabilitarCampos(e, p, s);
-        }
-        if (s) {
-          document.getElementById('a').classList.remove('no-visible');
-          document.getElementById('al').classList.remove('no-visible');
-          document.getElementById('p').classList.add('no-visible');
-        }
-        break;
-      case 'PS':
-        if (s) {
-          document.getElementById('a').classList.remove('no-visible');
-          document.getElementById('al').classList.remove('no-visible');
-          document.getElementById('ab').classList.remove('no-visible');
-          document.getElementById('p').classList.add('no-visible');
-        }
-        break;
-      case 'PTMAC':
-        if (s) {
-          document.getElementById('a').classList.remove('no-visible');
-          document.getElementById('al').classList.remove('no-visible');
-          document.getElementById('ab').classList.remove('no-visible');
-          document.getElementById('p').classList.add('no-visible');
-        }
-        break;
-      case 'SE':
-        deshabilitarCampos(e, p, s);
-        document.getElementById('p').classList.remove('no-visible');
-        e.onclick = function (){
-          deshabilitarCampos(e, p, s);
-        }
-        if (s) { habilitarCampo(e, s, 1); }
-        break;
-      default:
-      break;
-    }
-  }
-}
-
-function  deshabilitarCampos(e, p, s=null){
-  if (p) {
-    switch (p) {
-      case 'PMS':
-        document.getElementById('kl').classList.add('no-visible');
-        document.getElementById('k').classList.add('no-visible');
-        document.getElementById('k').value = "";
-        document.getElementById('kb').classList.add('no-visible');
-        document.getElementById('jl').classList.add('no-visible');
-        document.getElementById('j').classList.add('no-visible');
-        document.getElementById('j').value = "";
-        document.getElementById('jb').classList.add('no-visible');
-        document.getElementById('ml').classList.add('no-visible');
-        document.getElementById('m').classList.add('no-visible');
-        document.getElementById('m').value = "";
-        document.getElementById('mb').classList.add('no-visible');
-        document.getElementById('al').classList.add('no-visible');
-        document.getElementById('a').classList.add('no-visible');
-        document.getElementById('a').value = 0;
-        document.getElementById('ab').classList.add('no-visible');
-        e.onclick = function (){
-          habilitarCampo(e, p, s);
-        }
-        break;
-      default:
-        document.getElementById('kl').classList.add('no-visible');
-        document.getElementById('k').classList.add('no-visible');
-        document.getElementById('k').value = "";
-        document.getElementById('jl').classList.add('no-visible');
-        document.getElementById('j').classList.add('no-visible');
-        document.getElementById('j').value = "";
-        document.getElementById('ml').classList.add('no-visible');
-        document.getElementById('m').classList.add('no-visible');
-        document.getElementById('m').value = "";
-        document.getElementById('mb').classList.add('no-visible');
-        document.getElementById('p').classList.add('no-visible');
-        document.getElementById('al').classList.add('no-visible');
-        document.getElementById('a').classList.add('no-visible');
-        document.getElementById('a').value = 0;
-        document.getElementById('ab').classList.add('no-visible');
-        e.onclick = function (){
-          habilitarCampo(e, p, s);
-        }
-        break;
-    }
-  }
-}
+// function  habilitarCampo(e, p, s=null){
+//
+// alert(e + " " + p + " " + s)
+//
+//   if (p) {
+//     switch (p) {
+//       case 'PMS':
+//         deshabilitarCampos(e, p, s);
+//         document.getElementById('kl').classList.remove('no-visible');
+//         document.getElementById('k').classList.remove('no-visible');
+//         document.getElementById('k').value = "";
+//         s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('kb').classList.remove('no-visible');
+//         e.onclick = function (){
+//           deshabilitarCampos(e, p, s);
+//         }
+//         if (s) {
+//           alert(1);
+//           document.getElementById('a').classList.remove('no-visible');
+//           document.getElementById('al').classList.remove('no-visible');
+//           document.getElementById('p').classList.add('no-visible');
+//         }
+//         break;
+//       case 'PMD':
+//         deshabilitarCampos(e, p, s);
+//         document.getElementById('kl').classList.remove('no-visible');
+//         document.getElementById('k').classList.remove('no-visible');
+//         document.getElementById('k').value = "";
+//         document.getElementById('kb').classList.add('no-visible');
+//         document.getElementById('jl').classList.remove('no-visible');
+//         document.getElementById('j').classList.remove('no-visible');
+//         document.getElementById('j').value = "";
+//         s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('jb').classList.remove('no-visible');
+//         e.onclick = function (){
+//           deshabilitarCampos(e, p, s);
+//         }
+//         if (s) {
+//           document.getElementById('a').classList.remove('no-visible');
+//           document.getElementById('al').classList.remove('no-visible');
+//           document.getElementById('p').classList.add('no-visible');
+//         }
+//         break;
+//       case 'PMDA':
+//         deshabilitarCampos(e, p, s);
+//         document.getElementById('kl').classList.remove('no-visible');
+//         document.getElementById('k').classList.remove('no-visible');
+//         document.getElementById('k').value = "";
+//         document.getElementById('kb').classList.add('no-visible');
+//         document.getElementById('jl').classList.remove('no-visible');
+//         document.getElementById('j').classList.remove('no-visible');
+//         document.getElementById('j').value = "";
+//         document.getElementById('jb').classList.add('no-visible');
+//         document.getElementById('ml').classList.remove('no-visible');
+//         document.getElementById('m').classList.remove('no-visible');
+//         document.getElementById('m').value = "";
+//         s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('mb').classList.remove('no-visible');
+//         e.onclick = function (){
+//           deshabilitarCampos(e, p, s);
+//         }
+//         if (s) {
+//           document.getElementById('a').classList.remove('no-visible');
+//           document.getElementById('al').classList.remove('no-visible');
+//           document.getElementById('p').classList.add('no-visible');
+//         }
+//         break;
+//       case 'PS':
+//
+//       alert("hola2")
+//         if (s) {
+//
+//           alert("hola3")
+//           document.getElementById('a').classList.remove('no-visible');
+//           document.getElementById('al').classList.remove('no-visible');
+//           document.getElementById('ab').classList.remove('no-visible');
+//           document.getElementById('p').classList.add('no-visible');
+//           alert("hola4");
+//         }
+//         break;
+//       case 'PTMAC':
+//         if (s) {
+//           document.getElementById('a').classList.remove('no-visible');
+//           document.getElementById('al').classList.remove('no-visible');
+//           document.getElementById('ab').classList.remove('no-visible');
+//           document.getElementById('p').classList.add('no-visible');
+//         }
+//         break;
+//       case 'SE':
+//
+//         alert("grave");
+//         deshabilitarCampos(e, p, s);
+//         document.getElementById('p').classList.remove('no-visible');
+//         e.onclick = function (){
+//           deshabilitarCampos(e, p, s);
+//         }
+//         if (s != 1 && s) { alert("hola"); habilitarCampo(e, s, 1); }
+//         break;
+//       default:
+//       break;
+//     }
+//   }
+// }
+//
+// function  deshabilitarCampos(e, p, s=null){
+//
+// alert("1");
+//
+//   if (p) {
+//     switch (p) {
+//       case 'PMS':
+//         document.getElementById('kl').classList.add('no-visible');
+//         document.getElementById('k').classList.add('no-visible');
+//         document.getElementById('k').value = "";
+//         document.getElementById('kb').classList.add('no-visible');
+//         document.getElementById('jl').classList.add('no-visible');
+//         document.getElementById('j').classList.add('no-visible');
+//         document.getElementById('j').value = "";
+//         document.getElementById('jb').classList.add('no-visible');
+//         document.getElementById('ml').classList.add('no-visible');
+//         document.getElementById('m').classList.add('no-visible');
+//         document.getElementById('m').value = "";
+//         document.getElementById('mb').classList.add('no-visible');
+//         document.getElementById('al').classList.add('no-visible');
+//         document.getElementById('a').classList.add('no-visible');
+//         document.getElementById('a').value = 0;
+//         document.getElementById('ab').classList.add('no-visible');
+//         e.onclick = function (){
+//           habilitarCampo(e, p, s);
+//         }
+//         break;
+//       default:
+//         document.getElementById('kl').classList.add('no-visible');
+//         document.getElementById('k').classList.add('no-visible');
+//         document.getElementById('k').value = "";
+//         document.getElementById('jl').classList.add('no-visible');
+//         document.getElementById('j').classList.add('no-visible');
+//         document.getElementById('j').value = "";
+//         document.getElementById('ml').classList.add('no-visible');
+//         document.getElementById('m').classList.add('no-visible');
+//         document.getElementById('m').value = "";
+//         document.getElementById('mb').classList.add('no-visible');
+//         document.getElementById('p').classList.add('no-visible');
+//         document.getElementById('al').classList.add('no-visible');
+//         document.getElementById('a').classList.add('no-visible');
+//         document.getElementById('a').value = 0;
+//         document.getElementById('ab').classList.add('no-visible');
+//         e.onclick = function (){
+//           habilitarCampo(e, p, s);
+//         }
+//         break;
+//     }
+//   }
+// }
 
 function validateNumber(i, evt) {
   var theEvent = evt || window.event;
