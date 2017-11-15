@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  if (!isset($_SESSION['name'])) {
+    header('Location: index.php');
+  }
+ ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,7 +13,12 @@
   <title>Dashboard</title>
 </head>
 <body onload="deshabilitarBotones()">
-  <header><h2>Dashboard</h2></header>
+  <header>
+    <h2>Dashboard</h2>
+    <form action="#" method="POST">
+      <input type="submit" name="btnC" value="Salir">
+    </form>
+  </header>
   <div id="tablas" class="seccion">
     <div id="opciones">
       <select required id="variables" onchange="cargarDatos(this.value)">
@@ -22,15 +33,15 @@
       <button onclick="habilitarCampo(this, 'PMDA')">PMDA</button>
 
       <label id="kl" for="k" class="no-visible">K:</label>
-      <input id="k" class="no-visible" type="text">
+      <input id="k" class="no-visible" type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
       <button id="kb" class="no-visible" onclick="cargarPronostico(this, 'PMS')">Calcular</button>
 
       <label for="j" id="jl" class="no-visible">J:</label>
-      <input id="j" class="no-visible" type="text">
+      <input id="j" class="no-visible" type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
       <button id="jb" class="no-visible" onclick="cargarPronostico(this, 'PMD')">Calcular</button>
 
       <label for="m" id="ml" class="no-visible">M:</label>
-      <input id="m" class="no-visible" type="text">
+      <input id="m" class="no-visible" type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
       <button id="mb" class="no-visible" onclick="cargarPronostico(this, 'PMDA')">Calcular</button>
 
       <button onclick="cargarPronostico(this, 'PTMAC')">PTMAC</button>
@@ -45,25 +56,18 @@
         <option value="PTMAC">PTMAC</option>
       </select>
 
-      <label for="a" class="no-visible">A:</label>
-      <input id="a" class="no-visible" type="text">
+      <label  id="al" for="a" class="no-visible">A:</label>
+      <input id="a" class="no-visible" type="text" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
       <button id="ab" class="no-visible" onclick="cargarPronostico(this, 'SE')">Calcular</button>
     </div>
-    <table id="tablaDatos">
-      <thead>
-        <tr id="titulos"></tr>
-      </thead>
-      <tbody id="datos">
 
-      </tbody>
+    <table id="tablaDatos">
+      <thead><tr id="titulos"></tr></thead>
+      <tbody id="datos"></tbody>
     </table>
     <table id="tablaErrores">
-      <thead>
-        <tr id="titulosErrores"></tr>
-      </thead>
-      <tbody id="errores">
-
-      </tbody>
+      <thead><tr id="titulosErrores"></tr></thead>
+      <tbody id="errores"></tbody>
     </table>
     <h2 id="mejor">
       
@@ -72,3 +76,9 @@
   <div id="graficas" class="seccion"></div>
 </body>
 </html>
+<?php
+  if (isset($_POST['btnC'])) {
+    session_destroy();
+    header('Location: index.php');
+  }
+ ?>
