@@ -48,21 +48,26 @@ function cargarPronostico(e, tipo){
   switch (tipo) {
     case "PMS":
       k = document.getElementById('k').value;
-      var cargar = new XMLHttpRequest();
-      cargar.open("POST", "php/controlador.php?pronostico="+tipo, true);
-      cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      cargar.send("data="+localStorage.getItem('datos')+"&pronostico="+tipo+"&n="+localStorage.getItem('n')+"&k="+k);
-      cargar.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          dJSON = JSON.parse(this.responseText);
-          console.log(dJSON);
-          generarTabla(dJSON, tipo, k);
-          generarTablaErrores(dJSON, tipo);
-        }
-      };
-      e.onclick = function (){
-          borrarTabla(e, tipo);
-      };
+      if (k) {
+        var cargar = new XMLHttpRequest();
+        cargar.open("POST", "php/controlador.php?pronostico="+tipo, true);
+        cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        cargar.send("data="+localStorage.getItem('datos')+"&pronostico="+tipo+"&n="+localStorage.getItem('n')+"&k="+k);
+        cargar.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            dJSON = JSON.parse(this.responseText);
+            console.log(dJSON);
+            generarTabla(dJSON, tipo, k);
+            generarTablaErrores(dJSON, tipo);
+          }
+        };
+        e.onclick = function (){
+            borrarTabla(e, tipo);
+        };
+      }
+      else{
+        alert('Por favor ingresa todos los campos');
+      }
     break;
 
     case "PMD":
@@ -128,7 +133,7 @@ function cargarPronostico(e, tipo){
       document.getElementById('k').value ? k = document.getElementById('k').value : k = null;
       document.getElementById('j').value ? j = document.getElementById('j').value : j = null;
       document.getElementById('m').value ? m = document.getElementById('m').value : m = null;
-      document.getElementById('a').value ? a = document.getElementById('a').value : a = null;
+      document.getElementById('a').value ? a = parseFloat(document.getElementById('a').value) : a = null;
       document.getElementById('p').value ? p = document.getElementById('p').value : p = null;
 
       var cargar = new XMLHttpRequest();
@@ -188,47 +193,6 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
   //Variable que contiene la cantidad de frecuencias
   n = Object.keys(dJSON).length;
 
-
-  // x = localStorage.getItem('periodos');
-  // x = x.split(',');
-  // x = x[n-2].replace('"','');
-  // x = x.split('-');
-  // x[2] = x[2].replace('"', '');
-  // x[2] = parseInt(x[2])+1;
-
-  // //PMS
-  // if (k && !j) {
-  //   k = parseInt(k);
-  //   n = n + k - 1;
-  //   console.log(n);
-  // }
-  //
-  // //PMD
-  // if (k && j && !m) {
-  //   k = parseInt(k);
-  //   n = n +  k + 1;
-  //   console.log(n);
-  // }
-  //
-  // //PMDA
-  // if (k && j && m) {
-  //   k = parseInt(k);
-  //   n = n + k +1;
-  //   console.log(n);
-  // }
-  //
-  // //PTMAC
-  // if (k && !j && !m && tipo != "PMS") {
-  //   k = parseInt(k);
-  //   n = n+1;
-  //   console.log(n);
-  // }
-  //
-  // if (a) {
-  //   n = n +1;
-  //   console.log(n);
-  // }
-
   //Volver n dinámica
   for (i = 0; i < 119; i++) {
      row = tabla.rows[i];
@@ -245,27 +209,6 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
        cell2.innerHTML = "-";
      }
   }
-  // row1 = tabla.insertRow();
-  // cell1 = row1.insertCell();
-  // cell1.classList.add(tipo);
-  // cell1.innerHTML = "<b>Error Medio</b>";
-  // cell1.colSpan = 2;
-  //
-  // cell2 = row1.insertCell();
-  // cell2.innerHTML = parseFloat(dJSON[n][0]).toFixed(2);
-  // cell2.classList.add(tipo);
-  // cell2.colSpan = 2;
-  //
-  // row2 = tabla.insertRow();
-  // cell1 = row2.insertCell();
-  // cell1.classList.add(tipo);
-  // cell1.innerHTML = "<b>Error Relativo</b>";
-  // cell1.colSpan = 2;
-  //
-  // cell2 = row2.insertCell();
-  // cell2.colSpan = 2;
-  // cell2.innerHTML = parseFloat(dJSON[n][1]).toFixed(2)+"%";
-  // cell2.classList.add(tipo);
 }
 
 function generarTablaErrores(dJSON, tipo){
@@ -317,9 +260,14 @@ function  habilitarCampo(e, p, s=null){
         document.getElementById('kl').classList.remove('no-visible');
         document.getElementById('k').classList.remove('no-visible');
         document.getElementById('k').value = "";
-        document.getElementById('kb').classList.remove('no-visible');
+        s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('kb').classList.remove('no-visible');
         e.onclick = function (){
           deshabilitarCampos(e, p, s);
+        }
+        if (s) {
+          document.getElementById('a').classList.remove('no-visible');
+          document.getElementById('al').classList.remove('no-visible');
+          document.getElementById('p').classList.add('no-visible');
         }
         break;
       case 'PMD':
@@ -331,9 +279,14 @@ function  habilitarCampo(e, p, s=null){
         document.getElementById('jl').classList.remove('no-visible');
         document.getElementById('j').classList.remove('no-visible');
         document.getElementById('j').value = "";
-        document.getElementById('jb').classList.remove('no-visible');
+        s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('jb').classList.remove('no-visible');
         e.onclick = function (){
           deshabilitarCampos(e, p, s);
+        }
+        if (s) {
+          document.getElementById('a').classList.remove('no-visible');
+          document.getElementById('al').classList.remove('no-visible');
+          document.getElementById('p').classList.add('no-visible');
         }
         break;
       case 'PMDA':
@@ -349,20 +302,47 @@ function  habilitarCampo(e, p, s=null){
         document.getElementById('ml').classList.remove('no-visible');
         document.getElementById('m').classList.remove('no-visible');
         document.getElementById('m').value = "";
-        document.getElementById('mb').classList.remove('no-visible');
+        s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('mb').classList.remove('no-visible');
         e.onclick = function (){
           deshabilitarCampos(e, p, s);
         }
+        if (s) {
+          document.getElementById('a').classList.remove('no-visible');
+          document.getElementById('al').classList.remove('no-visible');
+          document.getElementById('p').classList.add('no-visible');
+        }
+        break;
+      case 'PS':
+        if (s) {
+          document.getElementById('a').classList.remove('no-visible');
+          document.getElementById('al').classList.remove('no-visible');
+          document.getElementById('ab').classList.remove('no-visible');
+          document.getElementById('p').classList.add('no-visible');
+        }
+        break;
+      case 'PTMAC':
+        if (s) {
+          document.getElementById('a').classList.remove('no-visible');
+          document.getElementById('al').classList.remove('no-visible');
+          document.getElementById('ab').classList.remove('no-visible');
+          document.getElementById('p').classList.add('no-visible');
+        }
+        break;
+      case 'SE':
+        deshabilitarCampos(e, p, s);
+        document.getElementById('p').classList.remove('no-visible');
+        e.onclick = function (){
+          deshabilitarCampos(e, p, s);
+        }
+        if (s) { habilitarCampo(e, s, 1); }
         break;
       default:
-
-        break;
-
+      break;
     }
   }
 }
 
-function deshabilitarCampos(e, p, s=null){
+function  deshabilitarCampos(e, p, s=null){
   if (p) {
     switch (p) {
       case 'PMS':
@@ -378,43 +358,57 @@ function deshabilitarCampos(e, p, s=null){
         document.getElementById('m').classList.add('no-visible');
         document.getElementById('m').value = "";
         document.getElementById('mb').classList.add('no-visible');
-        e.onclick = function (){
-          habilitarCampo(e, p, s);
-        }
-        break;
-      case 'PMD':
-        document.getElementById('kl').classList.add('no-visible');
-        document.getElementById('k').classList.add('no-visible');
-        document.getElementById('k').value = "";
-        document.getElementById('jl').classList.add('no-visible');
-        document.getElementById('j').classList.add('no-visible');
-        document.getElementById('j').value = "";
-        document.getElementById('ml').classList.add('no-visible');
-        document.getElementById('m').classList.add('no-visible');
-        document.getElementById('m').value = "";
-        document.getElementById('mb').classList.add('no-visible');
-        e.onclick = function (){
-          habilitarCampo(e, p, s);
-        }
-        break;
-      case 'PMDA':
-        document.getElementById('kl').classList.add('no-visible');
-        document.getElementById('k').classList.add('no-visible');
-        document.getElementById('k').value = "";
-        document.getElementById('jl').classList.add('no-visible');
-        document.getElementById('j').classList.add('no-visible');
-        document.getElementById('j').value = "";
-        document.getElementById('ml').classList.add('no-visible');
-        document.getElementById('m').classList.add('no-visible');
-        document.getElementById('m').value = "";
-        document.getElementById('mb').classList.add('no-visible');
+        document.getElementById('al').classList.add('no-visible');
+        document.getElementById('a').classList.add('no-visible');
+        document.getElementById('a').value = 0;
+        document.getElementById('ab').classList.add('no-visible');
         e.onclick = function (){
           habilitarCampo(e, p, s);
         }
         break;
       default:
-
+        document.getElementById('kl').classList.add('no-visible');
+        document.getElementById('k').classList.add('no-visible');
+        document.getElementById('k').value = "";
+        document.getElementById('jl').classList.add('no-visible');
+        document.getElementById('j').classList.add('no-visible');
+        document.getElementById('j').value = "";
+        document.getElementById('ml').classList.add('no-visible');
+        document.getElementById('m').classList.add('no-visible');
+        document.getElementById('m').value = "";
+        document.getElementById('mb').classList.add('no-visible');
+        document.getElementById('p').classList.add('no-visible');
+        document.getElementById('al').classList.add('no-visible');
+        document.getElementById('a').classList.add('no-visible');
+        document.getElementById('a').value = 0;
+        document.getElementById('ab').classList.add('no-visible');
+        e.onclick = function (){
+          habilitarCampo(e, p, s);
+        }
         break;
     }
+  }
+}
+
+function validateNumber(i, evt) {
+  var theEvent = evt || window.event;
+  var key = theEvent.keyCode || theEvent.which;
+  key = String.fromCharCode( key );
+  var regex = new RegExp('^[0-9\.\b\t]$');
+  if( !regex.test(key)) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+  n = parseInt(localStorage.getItem('n'));
+  ls= 0; li = 0;
+  if (i.id == 'k'){ ls = n; li = 1; }
+  if (i.id == 'j'){ ls = n - document.getElementById('k').value - 1; li = 1; }
+  if (i.id == 'm'){ ls = n * n; li = 1; }
+  if (i.id == 'a'){ ls = 1; li = 0; }
+  if(i.value > ls){
+    i.value = ls
+  }
+  if(i.value < li && i.value){
+    i.value = li
   }
 }
