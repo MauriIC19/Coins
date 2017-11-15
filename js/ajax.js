@@ -9,10 +9,20 @@ function cargarDatos(tipo){
      tabla.innerHTML = "";
      headers = document.getElementById('titulos');
      headers.innerHTML = "";
+     tablaE = document.getElementById('errores');
+     tablaE.innerHTML = "";
+     headersE = document.getElementById('titulosErrores');
+     headersE.innerHTML = "";
      cell1 = headers.insertCell();
      cell2 = headers.insertCell();
      cell1.innerHTML = "<b>Periodo</b>";
      cell2.innerHTML = "<b>Frecuencia</b>";
+     cell3 = headersE.insertCell();
+     cell4 = headersE.insertCell();
+     cell5 = headersE.insertCell();
+     cell3.innerHTML = "<b>Pronóstico</b>";
+     cell4.innerHTML = "<b>E<sub>MEDIO</sub></b>";
+     cell5.innerHTML = "<b>E<sub>RELATIVO</sub></b>";
      localStorage.setItem('n', dJSON.length);
      localStorage.setItem('datos', "[");
      localStorage.setItem('periodos', "");
@@ -46,7 +56,8 @@ function cargarPronostico(e, tipo){
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
           console.log(dJSON);
-          generarTabla(dJSON, tipo, k)
+          generarTabla(dJSON, tipo, k);
+          generarTablaErrores(dJSON, tipo);
         }
       };
       e.onclick = function (){
@@ -65,7 +76,8 @@ function cargarPronostico(e, tipo){
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
           console.log(dJSON);
-          generarTabla(dJSON, tipo, k, j)
+          generarTabla(dJSON, tipo, k, j);
+          generarTablaErrores(dJSON, tipo);
         }
       };
       e.onclick = function (){
@@ -85,7 +97,8 @@ function cargarPronostico(e, tipo){
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
           console.log(dJSON);
-          generarTabla(dJSON, tipo, k, j, m)
+          generarTabla(dJSON, tipo, k, j, m);
+          generarTablaErrores(dJSON, tipo);
         }
       };
       e.onclick = function (){
@@ -102,7 +115,8 @@ function cargarPronostico(e, tipo){
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
           console.log(dJSON);
-          generarTabla(dJSON, tipo, 1)
+          generarTabla(dJSON, tipo, 1);
+          generarTablaErrores(dJSON, tipo);
         }
       };
       e.onclick = function (){
@@ -125,7 +139,8 @@ function cargarPronostico(e, tipo){
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
           console.log(dJSON);
-          generarTabla(dJSON, tipo, k, j, m, a)
+          generarTabla(dJSON, tipo, k, j, m, a);
+          generarTablaErrores(dJSON, tipo);
         }
       };
       e.onclick = function (){
@@ -142,7 +157,8 @@ function cargarPronostico(e, tipo){
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
           console.log(dJSON);
-          generarTabla(dJSON, tipo)
+          generarTabla(dJSON, tipo);
+          generarTablaErrores(dJSON, tipo);
         }
       };
       e.onclick = function (){
@@ -152,16 +168,17 @@ function cargarPronostico(e, tipo){
   }
 }
 
+
 function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
   //Insertamos los títulos a la tabla
   headers = document.getElementById('titulos');
-  cell3 = headers.insertCell();
-  cell4 = headers.insertCell();
-  cell3.innerHTML = "<b>" + tipo + "</b>";
-  cell4.innerHTML = "<b>E<sub>ABS</sub>" + tipo + "</b>";
+  cell1 = headers.insertCell();
+  cell2 = headers.insertCell();
+  cell1.innerHTML = "<b>" + tipo + "</b>";
+  cell2.innerHTML = "<b>E<sub>ABS</sub>" + tipo + "</b>";
   //Añadimos la clase para poder quitarlas después
-  cell3.classList.add(tipo);
-  cell4.classList.add(tipo);
+  cell1.classList.add(tipo);
+  cell2.classList.add(tipo);
 
   tabla = document.getElementById('datos');
   row = tabla.insertRow();
@@ -249,6 +266,30 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
   // cell2.colSpan = 2;
   // cell2.innerHTML = parseFloat(dJSON[n][1]).toFixed(2)+"%";
   // cell2.classList.add(tipo);
+}
+
+function generarTablaErrores(dJSON, tipo){
+  //Añadimos la clase para poder quitarlas después
+  tablaE = document.getElementById('errores');
+  n = parseInt(localStorage.getItem('n'))+1;
+  row = tablaE.insertRow();
+
+    cell3 = row.insertCell();
+    cell3.classList.add(tipo);
+    cell4 = row.insertCell();
+    cell4.classList.add(tipo);
+    cell5 = row.insertCell();
+    cell5.classList.add(tipo);
+    if (dJSON[n]) {
+      tipo ? cell3.innerHTML = "<b>"+tipo+"</b>" : cell3.innerHTML = "-";
+      dJSON[n][0] ? cell4.innerHTML = parseFloat(dJSON[n][0]).toFixed(2) : cell5.innerHTML = "-";
+      dJSON[n][1] ? cell5.innerHTML = parseFloat(dJSON[n][1]).toFixed(2) : cell5.innerHTML = "-";
+    }
+    else{
+      cell3.innerHTML = "-";
+      cell4.innerHTML = "-";
+      cell5.innerHTML = "-";
+    }
 }
 
 function borrarTabla(e, tipo){
