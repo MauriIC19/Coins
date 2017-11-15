@@ -39,7 +39,7 @@ if (isset($_POST['btn'])) {
         }
       }
       else{
-        echo $querySesion;
+        echo "Usuario incorrecto";
       }
     }
 ?>
