@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  if (!isset($_SESSION['name'])) {
+    header('Location: index.php');
+  }
+ ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,7 +13,12 @@
   <title>Dashboard</title>
 </head>
 <body onload="deshabilitarBotones()">
-  <header><h2>Dashboard</h2></header>
+  <header>
+    <h2>Dashboard</h2>
+    <form action="#" method="POST">
+      <input type="submit" name="btnC" value="Salir">
+    </form>
+  </header>
   <div id="tablas" class="seccion">
     <div id="opciones">
       <select required id="variables" onchange="cargarDatos(this.value)">
@@ -62,3 +73,9 @@
   <div id="graficas" class="seccion"></div>
 </body>
 </html>
+<?php
+  if (isset($_POST['btnC'])) {
+    session_destroy();
+    header('Location: index.php');
+  }
+ ?>
