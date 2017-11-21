@@ -37,7 +37,7 @@ if (isset($_POST['btnC'])) {
           <div id="navbarMenuHeroA" class="navbar-menu">
             <div class="navbar-end">
               <div class="navbar-item">
-                <span class="is-size-6 parte-uno-saludo">Hola,&nbsp</span><span class="is-size-6 parte-dos-saludo">Luis Jorge</span>
+                <span class="is-size-6 parte-uno-saludo">Hola,&nbsp;</span><span class="is-size-6 parte-dos-saludo">Luis Jorge</span>
               </div>
 
               <div class="navbar-item">
@@ -77,7 +77,7 @@ if (isset($_POST['btnC'])) {
               <h4 class="is-size-7">Criptodivisas</h4>
               <div id="seleccionar-criptodivisa" class="dropdown" onclick="activar_dropdown()">
                 <div class="dropdown-trigger">
-                  <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                  <button id="boton-seleccionar-criptodivisa" class="button" aria-haspopup="true" aria-controls="dropdown-menu">
                     <span class="is-size-7">Lista de Opciones</span>
                     <span class="icon is-small">
                       <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -89,13 +89,13 @@ if (isset($_POST['btnC'])) {
                     <a onclick="cargarDatos(0)"  class="dropdown-item is-size-7">
                       <span class="icon is-small">
                         <i class="fa fa-gg" aria-hidden="true"></i>
-                      </span><span>&nbspEthereum</span>
+                      </span><span>&nbsp;Ethereum</span>
                     </a>
 
                     <a onclick="cargarDatos(1)" class="dropdown-item is-size-7">
                       <span class="icon is-small">
                         <i class="fa fa-btc" aria-hidden="true"></i>
-                      </span><span>&nbspBitcoin</span>
+                      </span><span>&nbsp;Bitcoin</span>
                     </a>
                   </div>
                 </div>
@@ -115,7 +115,7 @@ if (isset($_POST['btnC'])) {
                       <div class="navbar-item" >
                         <span class="icon is-small">
                           <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                        </span><span>&nbsp&nbspP. Simple</span>
+                        </span><span>&nbsp&nbsp;P. Simple</span>
                       </div>
                     </div>
                     <div  class="colum is-2 no-seleccionado" >
@@ -123,7 +123,7 @@ if (isset($_POST['btnC'])) {
                         <div id="promedio-movil-simple-accion" class="navbar-link" onclick="activar_dropdown_pms()">
                           <span class="icon is-small">
                             <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                          </span><span>&nbsp&nbspP. Móvil Simple</span>
+                          </span><span>&nbsp&nbsp;P. Móvil Simple</span>
                         </div>
 
                         <div class="auxiliares-contenedor navbar-dropdown is-size-7">
@@ -134,7 +134,7 @@ if (isset($_POST['btnC'])) {
                             </div>
 
                             <div class="column is-12">
-                              <input type="text" name="" value="" placeholder="Ingrese J" >
+                              <input id="pms-j" type="text" name="" value="" placeholder="Ingrese J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese J'">
                             </div>
 
                             <div class="column is-12">
@@ -214,8 +214,6 @@ if (isset($_POST['btnC'])) {
         </div>
       </div>
     </div>
-
-
 
   </section>
 </body>

@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: arial;
+  outline: none !important;
 }
 
 body{
@@ -90,6 +91,13 @@ table{
 
 /*----- Body ------*/
 
+#seleccionar-criptodivisa:focus, .dropdown-trigger:focus, #boton-seleccionar-criptodivisa:focus {
+  text-decoration: none !important;
+  outline:none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 .titulo-dashboard{
   margin-top: 30px;
   padding-left: 0px !important;
@@ -146,9 +154,11 @@ table{
   color: white;
   border: none;
   background: #40C6E3;
-  width: 40%;
-  height: 20px;
+  width: 50%;
   border-radius: 5px;
+  padding: 2.5px;
+  box-sizing: content-box;
+  cursor: pointer;
 }
 
 #promedio-simple{
