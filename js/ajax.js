@@ -263,10 +263,12 @@ function borrarTabla(e, tipo){
 
 function deshabilitarBotones(){
   btn = document.querySelectorAll('button');
-  for (var i = 0; i < btn.length; i++) {
+  for (var i = 2; i < btn.length; i++) {
     btn[i].disabled = true;
   }
 }
+
+
 
 // function  habilitarCampo(e, p, s=null){
 //
@@ -441,4 +443,26 @@ function validateNumber(i, evt) {
   if(i.value < li && i.value){
     i.value = li
   }
+}
+
+/*------ Funciones Front End ------*/
+
+function activar_dropdown(){
+  document.getElementById("seleccionar-criptodivisa").classList.add("is-active");
+  document.getElementById("seleccionar-criptodivisa").setAttribute("onclick","desactivar_dropdown()")
+}
+
+function desactivar_dropdown(){
+  document.getElementById("seleccionar-criptodivisa").classList.remove("is-active");
+  document.getElementById("seleccionar-criptodivisa").setAttribute("onclick","activar_dropdown()")
+}
+
+function activar_dropdown_pms(){
+  document.getElementById("promedio-movil-simple").classList.add("is-active");
+  document.getElementById("promedio-movil-simple-accion").setAttribute("onclick","desactivar_dropdown_pms()")
+}
+
+function desactivar_dropdown_pms(){
+  document.getElementById("promedio-movil-simple").classList.remove("is-active");
+  document.getElementById("promedio-movil-simple-accion").setAttribute("onclick","activar_dropdown_pms()")
 }
