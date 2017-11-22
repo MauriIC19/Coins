@@ -112,19 +112,24 @@ if (isset($_POST['btnC'])) {
                   <div class="columns is-multiline is-narrow">
 
                     <div id="promedio-simple" class="column is-2 no-seleccionado" onclick="cargarPronostico(this, 'PS')">
-                      <div class="navbar-item" >
-                        <span class="icon is-small">
-                          <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                        </span><span>&nbsp&nbsp;P. Simple</span>
+                      <div class="navbar-item has-text-centered" >
+                        <p class="margen-automatico">
+                          <span class="icon is-small">
+                            <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                          </span><span>&nbsp&nbsp;P. Simple</span>
+                        </p>
+
                       </div>
                     </div>
 
                     <div  class="column is-2 no-seleccionado" >
                       <div id="promedio-movil-simple" class="navbar-item has-dropdown" >
                         <div id="promedio-movil-simple-accion" class="navbar-link" onclick="activar_dropdown_pms()">
-                          <span class="icon is-small">
-                            <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                          </span><span>&nbsp&nbsp;P. Móvil Simple</span>
+                          <p class="margen-automatico">  <span class="icon is-small">
+                              <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                            </span><span>&nbsp&nbsp;P. Móvil Simple</span></p>
+
+
                         </div>
 
                         <div class="auxiliares-contenedor navbar-dropdown is-size-7">
@@ -146,9 +151,12 @@ if (isset($_POST['btnC'])) {
                     <div class="column is-2 no-seleccionado">
                       <div id="promedio-movil-doble" class="navbar-item has-dropdown" >
                         <div id="promedio-movil-doble-accion" class="navbar-link" onclick="activar_dropdown_pmd()">
-                          <span class="icon is-small">
-                            <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                          </span><span>&nbsp&nbsp;P. Móvil Doble</span>
+
+                          <p class="margen-automatico">  <span class="icon is-small">
+                              <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                            </span><span>&nbsp&nbsp;P. Móvil Doble</span></p>
+
+
                         </div>
 
                         <div class="auxiliares-contenedor navbar-dropdown is-size-7">
@@ -173,9 +181,14 @@ if (isset($_POST['btnC'])) {
                     <div class="column is-2 no-seleccionado">
                       <div id="promedio-movil-doble-ajustado" class="navbar-item has-dropdown" >
                         <div id="promedio-movil-doble-ajustado-accion" class="navbar-link" onclick="activar_dropdown_pmda()">
-                          <span class="icon is-small">
-                            <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                          </span><span>&nbsp&nbsp;P. Mov. Dob. Aju.</span>
+
+                          <p class="margen-automatico">
+                            <span class="icon is-small">
+                              <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                            </span><span>&nbsp&nbsp;P. Mov. Dob. Aju.</span>
+                          </p>
+
+
                         </div>
 
                         <div class="auxiliares-contenedor navbar-dropdown is-size-7">
@@ -203,9 +216,12 @@ if (isset($_POST['btnC'])) {
                     <div class="column is-2 no-seleccionado">
                       <div id="suavizacion-exponencial" class="navbar-item has-dropdown" >
                         <div id="suavizacion-exponencial-accion" class="navbar-link" onclick="activar_dropdown_se()">
-                          <span class="icon is-small">
-                            <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                          </span><span>&nbsp&nbsp;Suav. Exp.</span>
+
+                          <p class="margin-automatico">  <span class="icon is-small">
+                              <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                            </span><span>&nbsp&nbsp;Suav. Exp.</span></p>
+
+
                         </div>
 
                         <div class="auxiliares-contenedor navbar-dropdown is-size-7">
@@ -243,10 +259,15 @@ if (isset($_POST['btnC'])) {
                               <div id="seleccionar-se" class="dropdown" onclick="activar_dropdown_se_interno()">
                                 <div class="dropdown-trigger">
                                   <button id="boton-seleccionar-se" class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                                    <span id="lista-pronosticos" class="is-size-7">Pronósticos</span>
+
+                                    <p class="margin-automatico"><span id="lista-pronosticos" class="is-size-7">Pronósticos</span>
                                     <span class="icon is-small">
                                       <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    </span>
+                                    </span></p>
+
+
+
+
                                   </button>
                                 </div>
                                 <div class="dropdown-menu has-text-left" id="dropdown-menu" role="menu">
