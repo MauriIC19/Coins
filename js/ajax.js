@@ -1,5 +1,9 @@
 frecuencias = []
 ps = [] 
+pms = []
+pmd = []
+pmda = []
+ptmac = []
 
 function cargarDatos(tipo){
 
@@ -46,6 +50,7 @@ function cargarDatos(tipo){
      }
      localStorage.setItem('datos', localStorage.getItem('datos')+"]");
      localStorage.getItem('Errores') ? localStorage.removeItem('Errores') : "";
+     localStorage.setItem('Errores', '');
     }
   };
   btn = document.querySelectorAll('button');
@@ -75,8 +80,8 @@ function cargarPronostico(e, tipo){
         cargar.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             dJSON = JSON.parse(this.responseText);
-              console.log(JSON.stringify(dJSON,null,2));
             generarTabla(dJSON, tipo, k);
+            pushArrayPMS(dJSON, k);
             generarTablaErrores(dJSON, tipo);
           }
         };
@@ -92,8 +97,6 @@ function cargarPronostico(e, tipo){
     case "PMD":
       k = document.getElementById('kpmd').value;
       j = document.getElementById('jpmd').value;
-      alert(k);
-      alert(j)
       var cargar = new XMLHttpRequest();
       cargar.open("POST", "php/controlador.php?pronostico="+tipo, true);
       cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -101,8 +104,8 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-            console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo, k, j);
+          pushArrayPMD(dJSON, k, j)
           generarTablaErrores(dJSON, tipo);
         }
       };
@@ -122,8 +125,8 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-            console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo, k, j, m);
+          pushArrayPMDA(dJSON, k, j)
           generarTablaErrores(dJSON, tipo);
         }
       };
@@ -140,8 +143,8 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-            console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo, 1);
+          pushArrayPTMAC(dJSON);
           generarTablaErrores(dJSON, tipo);
         }
       };
@@ -164,7 +167,6 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-            console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo, k, j, m, a);
           generarTablaErrores(dJSON, tipo);
         }
@@ -182,7 +184,6 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-          console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo);
           pushArrayPs(dJSON)
           generarTablaErrores(dJSON, tipo);
@@ -203,11 +204,54 @@ function pushArrayPs(dJSON){
   generarGrafica();
 }
 
+function pushArrayPMS(dJSON, k){
+  for (i = 0; i < k; i++){
+    pms.push("");
+  }
+  for (var i = k; i < Object.keys(dJSON).length; i++) {
+    pms.push(parseInt(dJSON[i][0]));
+  }
+  generarGrafica();
+}
+
+function pushArrayPMD(dJSON, k, j){
+  k = parseInt(k);
+  j = parseInt(j);
+  for (i = 0; i < (k + j); i++){
+    pmd.push("");
+  }
+  for (var i = (k+j); i < Object.keys(dJSON).length; i++) {
+    pmd.push(parseInt(dJSON[i][0]));
+  }
+  generarGrafica();
+}
+
+function pushArrayPMDA(dJSON, k, j){
+  k = parseInt(k);
+  j = parseInt(j);
+  for (i = 0; i < (k + j); i++){
+    pmda.push("");
+  }
+  for (var i = (k+j); i < Object.keys(dJSON).length; i++) {
+    pmda.push(parseInt(dJSON[i][0]));
+  }
+  generarGrafica();
+}
+
+function pushArrayPTMAC(dJSON){
+  ptmac.push("")
+  ptmac.push("")
+  for (var i = 2; i <= Object.keys(dJSON).length; i++) {
+    ptmac.push(parseInt(dJSON[i][0]));
+  }
+  generarGrafica();
+}
+
+
 
 function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
 
-generarGrafica()
-
+  generarGrafica()
   //Insertamos los títulos a la tabla
   headers = document.getElementById('titulos');
   cell1 = headers.insertCell();
@@ -316,14 +360,14 @@ function validateNumber(i, evt) {
   if (i.id == 'kpms'){ ls = n; li = 1; }
 
   if (i.id == 'kpmd'){ ls = n; li = 1; }
-  if (i.id == 'jpmd'){ ls = n - document.getElementById('k').value - 1; li = 1; }
+  if (i.id == 'jpmd'){ ls = n - document.getElementById('kpmd').value - 1; li = 1; }
 
   if (i.id == 'kpmda'){ ls = n; li = 1; }
-  if (i.id == 'jpmda'){ ls = n - document.getElementById('k').value - 1; li = 1; }
+  if (i.id == 'jpmda'){ ls = n - document.getElementById('kpmda').value - 1; li = 1; }
   if (i.id == 'mpmda'){ ls = n * n; li = 1; }
 
   if (i.id == 'kse'){ ls = n; li = 1; }
-  if (i.id == 'jse'){ ls = n - document.getElementById('k').value - 1; li = 1; }
+  if (i.id == 'jse'){ ls = n - document.getElementById('kse').value - 1; li = 1; }
   if (i.id == 'mse'){ ls = n * n; li = 1; }
   if (i.id == 'ase'){ ls = 1; li = 0; }
 
@@ -418,7 +462,7 @@ function generarGrafica(){
           selected: 1
       },
       title: {
-          text: 'AAPL Stock Price'
+          text: 'Pronósticos'
       },
       plotOptions: {
         series: {
@@ -443,7 +487,28 @@ function generarGrafica(){
         } ,
         {
           name: 'Promedio Móvil Simple',
-          data: ps,
+          data: pms,
+          tooltip: {
+              valueDecimals: 2
+          }
+        } ,
+        {
+          name: 'Promedio Móvil Doble',
+          data: pmd,
+          tooltip: {
+              valueDecimals: 2
+          }
+        } ,
+        {
+          name: 'Promedio Móvil Doble Ajustado',
+          data: pmda,
+          tooltip: {
+              valueDecimals: 2
+          }
+        } ,
+        {
+          name: 'PTMAC',
+          data: ptmac,
           tooltip: {
               valueDecimals: 2
           }

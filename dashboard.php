@@ -267,8 +267,8 @@ if (isset($_POST['btnC'])) {
                                       <span>&nbsp;P. M. Doble A.</span>
                                     </a>
 
-                                    <a onclick="document.getElementById('lista-pronosticos').setAttribute('value','PTMAC'); document.getElementById('lista-pronosticos').innerHTML = 'P. T. M. A. de C.'" class="dropdown-item is-size-7">
-                                      <span>&nbsp;P. T. M. A. de C.</span>
+                                    <a onclick="document.getElementById('lista-pronosticos').setAttribute('value','PTMAC'); document.getElementById('lista-pronosticos').innerHTML = 'P.T.M.A.C.'" class="dropdown-item is-size-7">
+                                      <span>&nbsp;P.T.M.A.C.</span>
                                     </a>
 
                                   </div>
@@ -288,7 +288,7 @@ if (isset($_POST['btnC'])) {
                       <div class="navbar-item" >
                         <span class="icon is-small">
                           <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                        </span><span>&nbsp&nbsp;P. M. T. A. de C.</span>
+                        </span><span>&nbsp&nbsp;P.T.M.A.C.</span>
                       </div>
                     </div>
                   </div>
