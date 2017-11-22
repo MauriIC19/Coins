@@ -4,10 +4,18 @@ pms = []
 pmd = []
 pmda = []
 ptmac = []
+se = []
 
 function cargarDatos(tipo){
 
   var periodo = [];
+  frecuencias = []
+  ps = [] 
+  pms = []
+  pmd = []
+  pmda = []
+  ptmac = []
+  se = []
 
   var cargar = new XMLHttpRequest();
   cargar.open("GET", "php/controlador.php?tipo="+tipo, true);
@@ -168,6 +176,7 @@ function cargarPronostico(e, tipo){
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
           generarTabla(dJSON, tipo, k, j, m, a);
+          pushArraySE(dJSON, k, j, p)
           generarTablaErrores(dJSON, tipo);
         }
       };
@@ -247,6 +256,38 @@ function pushArrayPTMAC(dJSON){
   generarGrafica();
 }
 
+function pushArraySE(dJSON, k = null, j = null, tipo = null){
+  ii = 1;
+  switch(tipo){
+    case 'PS':
+      ii = 2
+      is = Object.keys(dJSON).length
+      break;
+    case 'PMS':
+      ii = parseInt(k) + 1;
+      is = Object.keys(dJSON).length + 1
+      break;
+    case 'PMD':
+      ii = parseInt(k) + parseInt(j) + 1;
+      is = Object.keys(dJSON).length + 3;
+      break;
+    case 'PMDA':
+      ii = parseInt(k) + parseInt(j) + 1;
+      is = Object.keys(dJSON).length + 3;
+      break;
+    case 'PTMAC':
+      ii = 1;
+      is = Object.keys(dJSON).length
+      break;
+  }
+  for (i = 0; i < ii; i++){
+    se.push("");
+  }
+  for (i = ii; i <= is; i++) {
+    se.push(parseInt(dJSON[i][0]));
+  }
+  generarGrafica();
+}
 
 
 function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
@@ -509,6 +550,13 @@ function generarGrafica(){
         {
           name: 'PTMAC',
           data: ptmac,
+          tooltip: {
+              valueDecimals: 2
+          }
+        } ,
+        {
+          name: 'SE',
+          data: se,
           tooltip: {
               valueDecimals: 2
           }
