@@ -1,6 +1,8 @@
+frecuencias = []
+ps = [] 
+
 function cargarDatos(tipo){
 
-   prueba = [];
   var periodo = [];
 
   var cargar = new XMLHttpRequest();
@@ -32,11 +34,8 @@ function cargarDatos(tipo){
      localStorage.setItem('n', dJSON.length);
      localStorage.setItem('datos', "[");
      localStorage.setItem('periodos', "");
+     pushArrayFrecuencia(dJSON);
      for (i = 0; i<dJSON.length; i++) {
-
-      periodo.push(dJSON[i].periodo);
-      prueba.push(parseInt(dJSON[i].frecuencia));
-
        row = tabla.insertRow(i);
        cell1 = row.insertCell();
        cell2 = row.insertCell();
@@ -53,12 +52,15 @@ function cargarDatos(tipo){
   for (var i = 0; i < btn.length; i++) {
     btn[i].disabled = false;
   }
+}
 
-  console.log(prueba[1]);
-
-
+function pushArrayFrecuencia(dJSON){
+  for (var i = 0; i < Object.keys(dJSON).length; i++) {
+    frecuencias.push(parseInt(dJSON[i].frecuencia));
+  }
+  frecuencias.push("");
   generarGrafica();
-
+  generarKPI();
 }
 
 function cargarPronostico(e, tipo){
@@ -182,6 +184,7 @@ function cargarPronostico(e, tipo){
           dJSON = JSON.parse(this.responseText);
           console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo);
+          pushArrayPs(dJSON)
           generarTablaErrores(dJSON, tipo);
         }
       };
@@ -190,6 +193,14 @@ function cargarPronostico(e, tipo){
       };
       break;
   }
+}
+
+function pushArrayPs(dJSON){
+  ps.push("")
+  for (var i = 1; i < Object.keys(dJSON).length; i++) {
+    ps.push(parseInt(dJSON[i][0]));
+  }
+  generarGrafica();
 }
 
 
@@ -290,160 +301,6 @@ function deshabilitarBotones(){
     btn[i].disabled = true;
   }
 }
-
-
-
-// function  habilitarCampo(e, p, s=null){
-//
-// alert(e + " " + p + " " + s)
-//
-//   if (p) {
-//     switch (p) {
-//       case 'PMS':
-//         deshabilitarCampos(e, p, s);
-//         document.getElementById('kl').classList.remove('no-visible');
-//         document.getElementById('k').classList.remove('no-visible');
-//         document.getElementById('k').value = "";
-//         s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('kb').classList.remove('no-visible');
-//         e.onclick = function (){
-//           deshabilitarCampos(e, p, s);
-//         }
-//         if (s) {
-//           alert(1);
-//           document.getElementById('a').classList.remove('no-visible');
-//           document.getElementById('al').classList.remove('no-visible');
-//           document.getElementById('p').classList.add('no-visible');
-//         }
-//         break;
-//       case 'PMD':
-//         deshabilitarCampos(e, p, s);
-//         document.getElementById('kl').classList.remove('no-visible');
-//         document.getElementById('k').classList.remove('no-visible');
-//         document.getElementById('k').value = "";
-//         document.getElementById('kb').classList.add('no-visible');
-//         document.getElementById('jl').classList.remove('no-visible');
-//         document.getElementById('j').classList.remove('no-visible');
-//         document.getElementById('j').value = "";
-//         s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('jb').classList.remove('no-visible');
-//         e.onclick = function (){
-//           deshabilitarCampos(e, p, s);
-//         }
-//         if (s) {
-//           document.getElementById('a').classList.remove('no-visible');
-//           document.getElementById('al').classList.remove('no-visible');
-//           document.getElementById('p').classList.add('no-visible');
-//         }
-//         break;
-//       case 'PMDA':
-//         deshabilitarCampos(e, p, s);
-//         document.getElementById('kl').classList.remove('no-visible');
-//         document.getElementById('k').classList.remove('no-visible');
-//         document.getElementById('k').value = "";
-//         document.getElementById('kb').classList.add('no-visible');
-//         document.getElementById('jl').classList.remove('no-visible');
-//         document.getElementById('j').classList.remove('no-visible');
-//         document.getElementById('j').value = "";
-//         document.getElementById('jb').classList.add('no-visible');
-//         document.getElementById('ml').classList.remove('no-visible');
-//         document.getElementById('m').classList.remove('no-visible');
-//         document.getElementById('m').value = "";
-//         s ? document.getElementById('ab').classList.remove('no-visible') : document.getElementById('mb').classList.remove('no-visible');
-//         e.onclick = function (){
-//           deshabilitarCampos(e, p, s);
-//         }
-//         if (s) {
-//           document.getElementById('a').classList.remove('no-visible');
-//           document.getElementById('al').classList.remove('no-visible');
-//           document.getElementById('p').classList.add('no-visible');
-//         }
-//         break;
-//       case 'PS':
-//
-//       alert("hola2")
-//         if (s) {
-//
-//           alert("hola3")
-//           document.getElementById('a').classList.remove('no-visible');
-//           document.getElementById('al').classList.remove('no-visible');
-//           document.getElementById('ab').classList.remove('no-visible');
-//           document.getElementById('p').classList.add('no-visible');
-//           alert("hola4");
-//         }
-//         break;
-//       case 'PTMAC':
-//         if (s) {
-//           document.getElementById('a').classList.remove('no-visible');
-//           document.getElementById('al').classList.remove('no-visible');
-//           document.getElementById('ab').classList.remove('no-visible');
-//           document.getElementById('p').classList.add('no-visible');
-//         }
-//         break;
-//       case 'SE':
-//
-//         alert("grave");
-//         deshabilitarCampos(e, p, s);
-//         document.getElementById('p').classList.remove('no-visible');
-//         e.onclick = function (){
-//           deshabilitarCampos(e, p, s);
-//         }
-//         if (s != 1 && s) { alert("hola"); habilitarCampo(e, s, 1); }
-//         break;
-//       default:
-//       break;
-//     }
-//   }
-// }
-//
-// function  deshabilitarCampos(e, p, s=null){
-//
-// alert("1");
-//
-//   if (p) {
-//     switch (p) {
-//       case 'PMS':
-//         document.getElementById('kl').classList.add('no-visible');
-//         document.getElementById('k').classList.add('no-visible');
-//         document.getElementById('k').value = "";
-//         document.getElementById('kb').classList.add('no-visible');
-//         document.getElementById('jl').classList.add('no-visible');
-//         document.getElementById('j').classList.add('no-visible');
-//         document.getElementById('j').value = "";
-//         document.getElementById('jb').classList.add('no-visible');
-//         document.getElementById('ml').classList.add('no-visible');
-//         document.getElementById('m').classList.add('no-visible');
-//         document.getElementById('m').value = "";
-//         document.getElementById('mb').classList.add('no-visible');
-//         document.getElementById('al').classList.add('no-visible');
-//         document.getElementById('a').classList.add('no-visible');
-//         document.getElementById('a').value = 0;
-//         document.getElementById('ab').classList.add('no-visible');
-//         e.onclick = function (){
-//           habilitarCampo(e, p, s);
-//         }
-//         break;
-//       default:
-//         document.getElementById('kl').classList.add('no-visible');
-//         document.getElementById('k').classList.add('no-visible');
-//         document.getElementById('k').value = "";
-//         document.getElementById('jl').classList.add('no-visible');
-//         document.getElementById('j').classList.add('no-visible');
-//         document.getElementById('j').value = "";
-//         document.getElementById('ml').classList.add('no-visible');
-//         document.getElementById('m').classList.add('no-visible');
-//         document.getElementById('m').value = "";
-//         document.getElementById('mb').classList.add('no-visible');
-//         document.getElementById('p').classList.add('no-visible');
-//         document.getElementById('al').classList.add('no-visible');
-//         document.getElementById('a').classList.add('no-visible');
-//         document.getElementById('a').value = 0;
-//         document.getElementById('ab').classList.add('no-visible');
-//         e.onclick = function (){
-//           habilitarCampo(e, p, s);
-//         }
-//         break;
-//     }
-//   }
-// }
 
 function validateNumber(i, evt) {
   var theEvent = evt || window.event;
@@ -555,33 +412,139 @@ function desactivar_dropdown_se_interno(){
 }
 
 function generarGrafica(){
-
-  var test = []
-
-  console.log(prueba[1])
-
-
-
-
   //Datos de la gráfica
-
   Highcharts.stockChart('grafica', {
-
-
       rangeSelector: {
           selected: 1
       },
-
       title: {
           text: 'AAPL Stock Price'
       },
+      plotOptions: {
+        series: {
+            pointStart: Date.UTC(2017, 6, 13),
+            pointInterval: 24 * 3600 * 1000 // one day
+        }
+    },
 
       series: [{
-          name: 'AAPL',
-          data: test[0],
+          name: 'Frecuencias',
+          data: frecuencias,
           tooltip: {
               valueDecimals: 2
           }
-      }]
+        }  ,
+          {
+          name: 'Promedio Simple',
+          data: ps,
+          tooltip: {
+              valueDecimals: 2
+          }
+        }]
   });
+}
+
+
+function generarKPI(){
+
+  var gaugeOptions = {
+
+      chart: {
+          type: 'solidgauge'
+      },
+
+      title: null,
+
+      pane: {
+          center: ['50%', '85%'],
+          size: '140%',
+          startAngle: -90,
+          endAngle: 90,
+          background: {
+              backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+              innerRadius: '60%',
+              outerRadius: '100%',
+              shape: 'arc'
+          }
+      },
+
+      tooltip: {
+          enabled: false
+      },
+
+      // the value axis
+      yAxis: {
+          stops: [
+              [0.1, '#55BF3B'], // green
+              [0.5, '#DDDF0D'], // yellow
+              [0.9, '#DF5353'] // red
+          ],
+          lineWidth: 0,
+          minorTickInterval: null,
+          tickAmount: 2,
+          title: {
+              y: -70
+          },
+          labels: {
+              y: 16
+          }
+      },
+
+      plotOptions: {
+          solidgauge: {
+              dataLabels: {
+                  y: 5,
+                  borderWidth: 0,
+                  useHTML: true
+              }
+          }
+      }
+  };
+
+  // The speed gauge
+  var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+      yAxis: {
+          min: 0,
+          max: 200,
+          title: {
+              text: 'Speed'
+          }
+      },
+
+      credits: {
+          enabled: false
+      },
+
+      series: [{
+          name: 'Speed',
+          data: [80],
+
+          tooltip: {
+              valueSuffix: ' km/h'
+          }
+      }]
+
+  }));
+
+  // The RPM gauge
+  var chartRpm = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
+      yAxis: {
+          min: 0,
+          max: 5,
+          title: {
+              text: 'RPM'
+          }
+      },
+
+      series: [{
+          name: 'RPM',
+          data: [1],
+
+          tooltip: {
+              valueSuffix: ' revolutions/min'
+          }
+      }]
+
+  }));
+
 }

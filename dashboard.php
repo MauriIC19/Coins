@@ -15,6 +15,8 @@ if (isset($_POST['btnC'])) {
   <meta charset="UTF-8">
 
   <script src="js/highstock/highstock.js"></script>
+  <script src="js/highstock/highcharts-more.js"></script>
+  <script src="js/highstock/modules/solid-gauge.js"></script>
 
   <link rel="stylesheet" href="css/estilos.css">
   <link rel="stylesheet" href="css/bulma.css">
@@ -310,7 +312,12 @@ if (isset($_POST['btnC'])) {
                   <div id="grafica" style="width:100%; height:400px;"></div>
                 </div>
 
-
+                   <div class="column is-12 is-size-7">
+                      <div style="width: 600px; height: 400px; margin: 0 auto">
+                          <div id="container-speed" style="width: 300px; height: 200px; float: left"></div>
+                          <div id="container-rpm" style="width: 300px; height: 200px; float: left"></div>
+                      </div>
+                </div>
 
 
               </div>
@@ -345,8 +352,6 @@ if (isset($_POST['btnC'])) {
 
 
 -->
-
-
 
           <h2 id="mejor">
 
