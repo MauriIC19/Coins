@@ -150,13 +150,13 @@ table{
   padding: 5px;
 }
 
-.auxiliares-contenedor button{
+.auxiliares-contenedor .boton-auxiliar{
   color: white;
   border: none;
   background: #40C6E3;
   width: 50%;
   border-radius: 5px;
-  padding: 2.5px;
+  padding: 3.5px;
   box-sizing: content-box;
   cursor: pointer;
 }
@@ -164,3 +164,4 @@ table{
 #promedio-simple{
   cursor: pointer !important;
 }
+

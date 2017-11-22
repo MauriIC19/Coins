@@ -1,10 +1,10 @@
 <?php
 class DB{
   function connect(){
-    $host = "127.0.0.1";
+    $host = "localhost";
     $name = "coins";
     $user = "root";
-    $pass = "";
+    $pass = "root";
 
     $conn = new mysqli($host, $user, $pass, $name);
 

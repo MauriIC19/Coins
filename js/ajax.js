@@ -48,7 +48,7 @@ function cargarDatos(tipo){
 function cargarPronostico(e, tipo){
   switch (tipo) {
     case "PMS":
-      k = document.getElementById('k').value;
+      k = document.getElementById('kpms').value;
       if (k) {
         var cargar = new XMLHttpRequest();
         cargar.open("POST", "php/controlador.php?pronostico="+tipo, true);
@@ -72,8 +72,10 @@ function cargarPronostico(e, tipo){
     break;
 
     case "PMD":
-      k = document.getElementById('k').value;
-      j = document.getElementById('j').value;
+      k = document.getElementById('kpmd').value;
+      j = document.getElementById('jpmd').value;
+      alert(k);
+      alert(j)
       var cargar = new XMLHttpRequest();
       cargar.open("POST", "php/controlador.php?pronostico="+tipo, true);
       cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -92,9 +94,9 @@ function cargarPronostico(e, tipo){
       break;
 
     case "PMDA":
-      k = document.getElementById('k').value;
-      j = document.getElementById('j').value;
-      m = document.getElementById('m').value;
+      k = document.getElementById('kpmda').value;
+      j = document.getElementById('jpmda').value;
+      m = document.getElementById('mpmda').value;
       var cargar = new XMLHttpRequest();
       cargar.open("POST", "php/controlador.php?pronostico="+tipo, true);
       cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -131,11 +133,11 @@ function cargarPronostico(e, tipo){
       break;
 
     case "SE":
-      document.getElementById('k').value ? k = document.getElementById('k').value : k = null;
-      document.getElementById('j').value ? j = document.getElementById('j').value : j = null;
-      document.getElementById('m').value ? m = document.getElementById('m').value : m = null;
-      document.getElementById('a').value ? a = parseFloat(document.getElementById('a').value) : a = null;
-      document.getElementById('p').value ? p = document.getElementById('p').value : p = null;
+      document.getElementById('kse').value ? k = document.getElementById('kse').value : k = null;
+      document.getElementById('jse').value ? j = document.getElementById('jse').value : j = null;
+      document.getElementById('mse').value ? m = document.getElementById('mse').value : m = null;
+      document.getElementById('ase').value ? a = parseFloat(document.getElementById('ase').value) : a = null;
+      document.getElementById('lista-pronosticos').getAttribute("value") ? p = document.getElementById('lista-pronosticos').getAttribute("value") : p = null;
 
       var cargar = new XMLHttpRequest();
       cargar.open("POST", "php/controlador.php?pronostico="+tipo, true);
@@ -263,7 +265,7 @@ function borrarTabla(e, tipo){
 
 function deshabilitarBotones(){
   btn = document.querySelectorAll('button');
-  for (var i = 2; i < btn.length; i++) {
+  for (var i = 5; i < btn.length; i++) {
     btn[i].disabled = true;
   }
 }
@@ -433,6 +435,20 @@ function validateNumber(i, evt) {
   }
   n = parseInt(localStorage.getItem('n'));
   ls= 0; li = 0;
+  if (i.id == 'kpms'){ ls = n; li = 1; }
+
+  if (i.id == 'kpmd'){ ls = n; li = 1; }
+  if (i.id == 'jpmd'){ ls = n - document.getElementById('k').value - 1; li = 1; }
+
+  if (i.id == 'kpmda'){ ls = n; li = 1; }
+  if (i.id == 'jpmda'){ ls = n - document.getElementById('k').value - 1; li = 1; }
+  if (i.id == 'mpmda'){ ls = n * n; li = 1; }
+
+  if (i.id == 'kse'){ ls = n; li = 1; }
+  if (i.id == 'jse'){ ls = n - document.getElementById('k').value - 1; li = 1; }
+  if (i.id == 'mse'){ ls = n * n; li = 1; }
+  if (i.id == 'ase'){ ls = 1; li = 0; }
+
   if (i.id == 'k'){ ls = n; li = 1; }
   if (i.id == 'j'){ ls = n - document.getElementById('k').value - 1; li = 1; }
   if (i.id == 'm'){ ls = n * n; li = 1; }
@@ -465,4 +481,54 @@ function activar_dropdown_pms(){
 function desactivar_dropdown_pms(){
   document.getElementById("promedio-movil-simple").classList.remove("is-active");
   document.getElementById("promedio-movil-simple-accion").setAttribute("onclick","activar_dropdown_pms()")
+}
+
+function activar_dropdown_pms(){
+  document.getElementById("promedio-movil-simple").classList.add("is-active");
+  document.getElementById("promedio-movil-simple-accion").setAttribute("onclick","desactivar_dropdown_pms()")
+}
+
+function desactivar_dropdown_pms(){
+  document.getElementById("promedio-movil-simple").classList.remove("is-active");
+  document.getElementById("promedio-movil-simple-accion").setAttribute("onclick","activar_dropdown_pms()")
+}
+
+function activar_dropdown_pmd(){
+  document.getElementById("promedio-movil-doble").classList.add("is-active");
+  document.getElementById("promedio-movil-doble-accion").setAttribute("onclick","desactivar_dropdown_pmd()")
+}
+
+function desactivar_dropdown_pmd(){
+  document.getElementById("promedio-movil-doble").classList.remove("is-active");
+  document.getElementById("promedio-movil-doble-accion").setAttribute("onclick","activar_dropdown_pmd()")
+}
+
+function activar_dropdown_pmda(){
+  document.getElementById("promedio-movil-doble-ajustado").classList.add("is-active");
+  document.getElementById("promedio-movil-doble-ajustado-accion").setAttribute("onclick","desactivar_dropdown_pmda()")
+}
+
+function desactivar_dropdown_pmda(){
+  document.getElementById("promedio-movil-doble-ajustado").classList.remove("is-active");
+  document.getElementById("promedio-movil-doble-ajustado-accion").setAttribute("onclick","activar_dropdown_pmda()")
+}
+
+function activar_dropdown_se(){
+  document.getElementById("suavizacion-exponencial").classList.add("is-active");
+  document.getElementById("suavizacion-exponencial-accion").setAttribute("onclick","desactivar_dropdown_se()")
+}
+
+function desactivar_dropdown_se(){
+  document.getElementById("suavizacion-exponencial").classList.remove("is-active");
+  document.getElementById("suavizacion-exponencial-accion").setAttribute("onclick","activar_dropdown_se()")
+}
+
+function activar_dropdown_se_interno(){
+  document.getElementById("seleccionar-se").classList.add("is-active");
+  document.getElementById("seleccionar-se").setAttribute("onclick","desactivar_dropdown_se_interno()")
+}
+
+function desactivar_dropdown_se_interno(){
+  document.getElementById("seleccionar-se").classList.remove("is-active");
+  document.getElementById("seleccionar-se").setAttribute("onclick","activar_dropdown_se_interno()")
 }
