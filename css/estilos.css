@@ -89,6 +89,13 @@ table{
   cursor: pointer;
 }
 
+.margen-automatico{
+  margin:auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /*----- Body ------*/
 
 #seleccionar-criptodivisa:focus, .dropdown-trigger:focus, #boton-seleccionar-criptodivisa:focus {
@@ -164,4 +171,3 @@ table{
 #promedio-simple{
   cursor: pointer !important;
 }
-
