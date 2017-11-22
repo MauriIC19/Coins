@@ -440,6 +440,13 @@ function generarGrafica(){
           tooltip: {
               valueDecimals: 2
           }
+        } ,
+        {
+          name: 'Promedio Móvil Simple',
+          data: ps,
+          tooltip: {
+              valueDecimals: 2
+          }
         }]
   });
 }
