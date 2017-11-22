@@ -223,7 +223,7 @@ function pushArrayPMS(dJSON, k){
   for (i = 0; i < k; i++){
     pms.push("");
   }
-  for (var i = k; i < Object.keys(dJSON).length; i++) {
+  for (var i = k; i < Object.keys(dJSON).length + parseInt(k) - 1; i++) {
     pms.push(parseInt(dJSON[i][0]));
   }
   generarGrafica();
@@ -235,7 +235,7 @@ function pushArrayPMD(dJSON, k, j){
   for (i = 0; i < (k + j); i++){
     pmd.push("");
   }
-  for (var i = (k+j); i < Object.keys(dJSON).length; i++) {
+  for (var i = (k+j); i < Object.keys(dJSON).length + k + j - 1; i++) {
     pmd.push(parseInt(dJSON[i][0]));
   }
   generarGrafica();
@@ -247,7 +247,7 @@ function pushArrayPMDA(dJSON, k, j){
   for (i = 0; i < (k + j); i++){
     pmda.push("");
   }
-  for (var i = (k+j); i < Object.keys(dJSON).length; i++) {
+  for (var i = (k+j); i < Object.keys(dJSON).length + k + j - 1; i++) {
     pmda.push(parseInt(dJSON[i][0]));
   }
   generarGrafica();
@@ -271,19 +271,19 @@ function pushArraySE(dJSON, k = null, j = null, tipo = null){
       break;
     case 'PMS':
       ii = parseInt(k) + 1;
-      is = Object.keys(dJSON).length + 1
+      is = Object.keys(dJSON).length + parseInt(k) - 1;
       break;
     case 'PMD':
       ii = parseInt(k) + parseInt(j) + 1;
-      is = Object.keys(dJSON).length + 3;
+      is = Object.keys(dJSON).length + parseInt(k) - 1 + parseInt(j);
       break;
     case 'PMDA':
       ii = parseInt(k) + parseInt(j) + 1;
-      is = Object.keys(dJSON).length + 3;
+      is = Object.keys(dJSON).length + parseInt(k) - 1 + parseInt(j);
       break;
     case 'PTMAC':
-      ii = 1;
-      is = Object.keys(dJSON).length
+      ii = 3;
+      is = Object.keys(dJSON).length + 1;
       break;
   }
   for (i = 0; i < ii; i++){
@@ -404,21 +404,21 @@ function validateNumber(i, evt) {
   }
   n = parseInt(localStorage.getItem('n'));
   ls= 0; li = 0;
-  if (i.id == 'kpms'){ ls = n; li = 1; }
+  if (i.id == 'kpms'){ ls = n - 1; li = 1; }
 
-  if (i.id == 'kpmd'){ ls = n; li = 1; }
+  if (i.id == 'kpmd'){ ls = n - 2; li = 1; }
   if (i.id == 'jpmd'){ ls = n - document.getElementById('kpmd').value - 1; li = 1; }
 
-  if (i.id == 'kpmda'){ ls = n; li = 1; }
+  if (i.id == 'kpmda'){ ls = n - 2; li = 1; }
   if (i.id == 'jpmda'){ ls = n - document.getElementById('kpmda').value - 1; li = 1; }
   if (i.id == 'mpmda'){ ls = n * n; li = 1; }
 
-  if (i.id == 'kse'){ ls = n; li = 1; }
+  if (i.id == 'kse'){ ls = n - 1; li = 1; }
   if (i.id == 'jse'){ ls = n - document.getElementById('kse').value - 1; li = 1; }
   if (i.id == 'mse'){ ls = n * n; li = 1; }
   if (i.id == 'ase'){ ls = 1; li = 0; }
 
-  if (i.id == 'k'){ ls = n; li = 1; }
+  if (i.id == 'k'){ ls = n - 1; li = 1; }
   if (i.id == 'j'){ ls = n - document.getElementById('k').value - 1; li = 1; }
   if (i.id == 'm'){ ls = n * n; li = 1; }
   if (i.id == 'a'){ ls = 1; li = 0; }
