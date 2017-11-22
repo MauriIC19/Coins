@@ -8,7 +8,7 @@ se = []
 
 function cargarDatos(tipo){
 
-  var periodo = [];
+  var periodo = []
   frecuencias = []
   ps = [] 
   pms = []
@@ -79,6 +79,7 @@ function pushArrayFrecuencia(dJSON){
 function cargarPronostico(e, tipo){
   switch (tipo) {
     case "PMS":
+      pms = []
       k = document.getElementById('kpms').value;
       if (k) {
         var cargar = new XMLHttpRequest();
@@ -103,6 +104,7 @@ function cargarPronostico(e, tipo){
     break;
 
     case "PMD":
+      pmd = []
       k = document.getElementById('kpmd').value;
       j = document.getElementById('jpmd').value;
       var cargar = new XMLHttpRequest();
@@ -123,6 +125,7 @@ function cargarPronostico(e, tipo){
       break;
 
     case "PMDA":
+      pmda = []
       k = document.getElementById('kpmda').value;
       j = document.getElementById('jpmda').value;
       m = document.getElementById('mpmda').value;
@@ -144,6 +147,7 @@ function cargarPronostico(e, tipo){
       break;
 
     case "PTMAC":
+      ptmac = []
       var cargar = new XMLHttpRequest();
       cargar.open("POST", "php/controlador.php?pronostico="+tipo, true);
       cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -162,6 +166,7 @@ function cargarPronostico(e, tipo){
       break;
 
     case "SE":
+      se = []
       document.getElementById('kse').value ? k = document.getElementById('kse').value : k = null;
       document.getElementById('jse').value ? j = document.getElementById('jse').value : j = null;
       document.getElementById('mse').value ? m = document.getElementById('mse').value : m = null;
@@ -186,6 +191,7 @@ function cargarPronostico(e, tipo){
       break;
 
     default:
+      ps = []
       var cargar = new XMLHttpRequest();
       cargar.open("POST", "php/controlador.php?pronostico="+tipo, true);
       cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -666,5 +672,4 @@ function generarKPI(){
       }]
 
   }));
-
 }
