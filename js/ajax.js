@@ -47,6 +47,11 @@ function cargarDatos(tipo){
      localStorage.setItem('datos', "[");
      localStorage.setItem('periodos', "");
      pushArrayFrecuencia(dJSON);
+     if(frecuencias.indexOf(0) > -1){
+      document.getElementById("ptmac").setAttribute("disabled", true);
+     }else{
+      document.getElementById("ptmac").removeAttribute("disabled");
+     }
      for (i = 0; i<dJSON.length; i++) {
        row = tabla.insertRow(i);
        cell1 = row.insertCell();
