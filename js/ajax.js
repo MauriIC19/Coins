@@ -1,10 +1,16 @@
 function cargarDatos(tipo){
+
+   prueba = [];
+  var periodo = [];
+
   var cargar = new XMLHttpRequest();
   cargar.open("GET", "php/controlador.php?tipo="+tipo, true);
   cargar.send();
   cargar.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
      dJSON = JSON.parse(this.responseText);
+     //console.log(JSON.stringify(dJSON,null,2));
+
      tabla = document.getElementById('datos');
      tabla.innerHTML = "";
      headers = document.getElementById('titulos');
@@ -27,6 +33,10 @@ function cargarDatos(tipo){
      localStorage.setItem('datos', "[");
      localStorage.setItem('periodos', "");
      for (i = 0; i<dJSON.length; i++) {
+
+      periodo.push(dJSON[i].periodo);
+      prueba.push(parseInt(dJSON[i].frecuencia));
+
        row = tabla.insertRow(i);
        cell1 = row.insertCell();
        cell2 = row.insertCell();
@@ -43,6 +53,12 @@ function cargarDatos(tipo){
   for (var i = 0; i < btn.length; i++) {
     btn[i].disabled = false;
   }
+
+  console.log(prueba[1]);
+
+
+  generarGrafica();
+
 }
 
 function cargarPronostico(e, tipo){
@@ -57,7 +73,7 @@ function cargarPronostico(e, tipo){
         cargar.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             dJSON = JSON.parse(this.responseText);
-            console.log(dJSON);
+              console.log(JSON.stringify(dJSON,null,2));
             generarTabla(dJSON, tipo, k);
             generarTablaErrores(dJSON, tipo);
           }
@@ -83,7 +99,7 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-          console.log(dJSON);
+            console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo, k, j);
           generarTablaErrores(dJSON, tipo);
         }
@@ -104,7 +120,7 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-          console.log(dJSON);
+            console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo, k, j, m);
           generarTablaErrores(dJSON, tipo);
         }
@@ -122,7 +138,7 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-          console.log(dJSON);
+            console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo, 1);
           generarTablaErrores(dJSON, tipo);
         }
@@ -146,7 +162,7 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-          console.log(dJSON);
+            console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo, k, j, m, a);
           generarTablaErrores(dJSON, tipo);
         }
@@ -164,7 +180,7 @@ function cargarPronostico(e, tipo){
       cargar.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
           dJSON = JSON.parse(this.responseText);
-          console.log(dJSON);
+          console.log(JSON.stringify(dJSON,null,2));
           generarTabla(dJSON, tipo);
           generarTablaErrores(dJSON, tipo);
         }
@@ -178,6 +194,9 @@ function cargarPronostico(e, tipo){
 
 
 function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
+
+generarGrafica()
+
   //Insertamos los títulos a la tabla
   headers = document.getElementById('titulos');
   cell1 = headers.insertCell();
@@ -203,7 +222,9 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
      cell1.classList.add(tipo);
      cell2 = row.insertCell();
      cell2.classList.add(tipo);
+
      if (dJSON[i]) {
+
        dJSON[i][0] ? cell1.innerHTML = parseFloat(dJSON[i][0]).toFixed(2) : cell1.innerHTML = "-";
        dJSON[i][1] ? cell2.innerHTML = parseFloat(dJSON[i][1]).toFixed(2) : cell2.innerHTML = "-";
      }
@@ -531,4 +552,36 @@ function activar_dropdown_se_interno(){
 function desactivar_dropdown_se_interno(){
   document.getElementById("seleccionar-se").classList.remove("is-active");
   document.getElementById("seleccionar-se").setAttribute("onclick","activar_dropdown_se_interno()")
+}
+
+function generarGrafica(){
+
+  var test = []
+
+  console.log(prueba[1])
+
+
+
+
+  //Datos de la gráfica
+
+  Highcharts.stockChart('grafica', {
+
+
+      rangeSelector: {
+          selected: 1
+      },
+
+      title: {
+          text: 'AAPL Stock Price'
+      },
+
+      series: [{
+          name: 'AAPL',
+          data: test[0],
+          tooltip: {
+              valueDecimals: 2
+          }
+      }]
+  });
 }

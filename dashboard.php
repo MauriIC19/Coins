@@ -13,7 +13,9 @@ if (isset($_POST['btnC'])) {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <script src="js/ajax.js"></script>
+
+  <script src="js/highstock/highstock.js"></script>
+
   <link rel="stylesheet" href="css/estilos.css">
   <link rel="stylesheet" href="css/bulma.css">
   <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
@@ -105,9 +107,9 @@ if (isset($_POST['btnC'])) {
             <div id="contenedor-general-derecha" class="column is-12">
               <div class="columns is-multiline">
                 <div class="column is-12 is-size-7">
-                  <div class="columns is-multiline">
+                  <div class="columns is-multiline is-narrow">
 
-                    <div id="promedio-simple" class="colum is-2 no-seleccionado" onclick="cargarPronostico(this, 'PS')">
+                    <div id="promedio-simple" class="column is-2 no-seleccionado" onclick="cargarPronostico(this, 'PS')">
                       <div class="navbar-item" >
                         <span class="icon is-small">
                           <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
@@ -115,7 +117,7 @@ if (isset($_POST['btnC'])) {
                       </div>
                     </div>
 
-                    <div  class="colum is-2 no-seleccionado" >
+                    <div  class="column is-2 no-seleccionado" >
                       <div id="promedio-movil-simple" class="navbar-item has-dropdown" >
                         <div id="promedio-movil-simple-accion" class="navbar-link" onclick="activar_dropdown_pms()">
                           <span class="icon is-small">
@@ -139,7 +141,7 @@ if (isset($_POST['btnC'])) {
                       </div>
                     </div>
 
-                    <div class="colum is-2 no-seleccionado">
+                    <div class="column is-2 no-seleccionado">
                       <div id="promedio-movil-doble" class="navbar-item has-dropdown" >
                         <div id="promedio-movil-doble-accion" class="navbar-link" onclick="activar_dropdown_pmd()">
                           <span class="icon is-small">
@@ -157,7 +159,7 @@ if (isset($_POST['btnC'])) {
                             </div>
                             <div class="column is-12">
                               <input id="jpmd" type="text" name="" value="" placeholder="Ingrese J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese J'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                            </div> 
+                            </div>
                             <div class="column is-12">
                               <button type="button" class="boton-auxiliar" name="button" onclick="cargarPronostico(this, 'PMD')">Calcular</button>
                             </div>
@@ -166,12 +168,12 @@ if (isset($_POST['btnC'])) {
                       </div>
                     </div>
 
-                    <div class="colum is-2 no-seleccionado">
+                    <div class="column is-2 no-seleccionado">
                       <div id="promedio-movil-doble-ajustado" class="navbar-item has-dropdown" >
                         <div id="promedio-movil-doble-ajustado-accion" class="navbar-link" onclick="activar_dropdown_pmda()">
                           <span class="icon is-small">
                             <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                          </span><span>&nbsp&nbsp;P. Móvil Doble Ajustado</span>
+                          </span><span>&nbsp&nbsp;P. Mov. Dob. Aju.</span>
                         </div>
 
                         <div class="auxiliares-contenedor navbar-dropdown is-size-7">
@@ -184,10 +186,10 @@ if (isset($_POST['btnC'])) {
                             </div>
                             <div class="column is-12">
                               <input id="jpmda" type="text" name="" value="" placeholder="Ingrese J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese J'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                            </div> 
+                            </div>
                             <div class="column is-12">
                               <input id="mpmda" type="text" name="" value="" placeholder="Ingrese M" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese M'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                            </div> 
+                            </div>
                             <div class="column is-12">
                               <button type="button" class="boton-auxiliar" name="button" onclick="cargarPronostico(this, 'PMDA')">Calcular</button>
                             </div>
@@ -196,12 +198,12 @@ if (isset($_POST['btnC'])) {
                       </div>
                     </div>
 
-                    <div class="colum is-2 no-seleccionado">
+                    <div class="column is-2 no-seleccionado">
                       <div id="suavizacion-exponencial" class="navbar-item has-dropdown" >
                         <div id="suavizacion-exponencial-accion" class="navbar-link" onclick="activar_dropdown_se()">
                           <span class="icon is-small">
                             <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
-                          </span><span>&nbsp&nbsp;Suavización Exponencial</span>
+                          </span><span>&nbsp&nbsp;Suav. Exp.</span>
                         </div>
 
                         <div class="auxiliares-contenedor navbar-dropdown is-size-7">
@@ -216,15 +218,15 @@ if (isset($_POST['btnC'])) {
 
                             <div class="column is-12">
                               <input id="jse" type="text" name="" value="" placeholder="Ingrese J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese J'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                            </div> 
+                            </div>
 
                             <div class="column is-12">
                               <input id="mse" type="text" name="" value="" placeholder="Ingrese M" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese M'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                            </div> 
+                            </div>
 
                             <div class="column is-12">
                               <input id="ase" type="text" name="" value="" placeholder="Ingrese A" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese A'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                            </div> 
+                            </div>
 
                             <div class="column is-12">
                               <!--<select required id="p">
@@ -280,16 +282,37 @@ if (isset($_POST['btnC'])) {
                       </div>
                     </div>
 
-                    <div id="ptmac" class="colum is-2 no-seleccionado" onclick="cargarPronostico(this, 'PTMAC')">
+                    <div id="ptmac" class="column is-2 no-seleccionado" onclick="cargarPronostico(this, 'PTMAC')">
                       <div class="navbar-item" >
                         <span class="icon is-small">
                           <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
                         </span><span>&nbsp&nbsp;P. M. T. A. de C.</span>
                       </div>
                     </div>
-
                   </div>
                 </div>
+
+                <div class="column is-12 is-size-7">
+                  <table id="tablaDatos" class="table is-striped">
+                    <thead><tr id="titulos"></tr></thead>
+                    <tbody id="datos"></tbody>
+                  </table>
+                </div>
+
+                <div class="column is-12 is-size-7">
+                  <table id="tablaErrores is-striped">
+                    <thead><tr id="titulosErrores"></tr></thead>
+                    <tbody id="errores"></tbody>
+                  </table>
+                </div>
+
+                <div class="column is-12 is-size-7">
+                  <div id="grafica" style="width:100%; height:400px;"></div>
+                </div>
+
+
+
+
               </div>
             </div>
           </div>
@@ -323,14 +346,8 @@ if (isset($_POST['btnC'])) {
 
 -->
 
-          <table id="tablaDatos">
-            <thead><tr id="titulos"></tr></thead>
-            <tbody id="datos"></tbody>
-          </table>
-          <table id="tablaErrores">
-            <thead><tr id="titulosErrores"></tr></thead>
-            <tbody id="errores"></tbody>
-          </table>
+
+
           <h2 id="mejor">
 
           </h2>
@@ -347,4 +364,5 @@ if (isset($_POST['btnC'])) {
 
   </section>
 </body>
+    <script src="js/ajax.js"></script>
 </html>
