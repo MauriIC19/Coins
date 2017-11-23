@@ -21,6 +21,7 @@ function PS($arr, $n, $k=null, $j=null, $m=null, $a=null, $pms=null, $pmd=null, 
 	$ps[$n+1][1] = ($ps[$n+1][0]*100)/$ps[$n-1][0];
 
 	return $ps;
+	//
 }
 
 function PMS($arr, $n, $k=null, $j=null, $m=null, $a=null, $pms=null, $pmd=null, $inicio=null, $serie=null){
