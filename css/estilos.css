@@ -45,6 +45,10 @@ table{
   visibility: hidden;
 }
 
+.cursor-pointer{
+  cursor: pointer !important;
+}
+
 /*----- Estilos -----*/
 
 /*----- Header ----- */
@@ -94,6 +98,7 @@ table{
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+
 }
 
 /*----- Body ------*/
@@ -118,6 +123,7 @@ table{
 .contenedor-criptodivisa{
   border: solid 1px #F4F4F4;
   border-radius: 5px;
+  z-index: 999;
 }
 
   .contenedor-criptodivisa h4{
@@ -144,6 +150,17 @@ table{
   user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
+.contenedor-filtros{
+  border: solid 1px #F4F4F4;
+  border-radius: 5px;
+  padding: 0rem !important;
+  margin: 0rem 0rem 0rem 0.75rem !important;
+}
+
+.navbar-item:hover{
+  background: whitesmoke;
+}
+
 .auxiliares-contenedor h3{
   color: #95989A;
 }
@@ -168,6 +185,4 @@ table{
   cursor: pointer;
 }
 
-#promedio-simple{
-  cursor: pointer !important;
-}
+

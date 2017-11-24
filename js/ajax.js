@@ -437,15 +437,7 @@ function validateNumber(i, evt) {
 
 /*------ Funciones Front End ------*/
 
-function activar_dropdown(){
-  document.getElementById("seleccionar-criptodivisa").classList.add("is-active");
-  document.getElementById("seleccionar-criptodivisa").setAttribute("onclick","desactivar_dropdown()")
-}
 
-function desactivar_dropdown(){
-  document.getElementById("seleccionar-criptodivisa").classList.remove("is-active");
-  document.getElementById("seleccionar-criptodivisa").setAttribute("onclick","activar_dropdown()")
-}
 
 function activar_dropdown_pms(){
   document.getElementById("promedio-movil-simple").classList.add("is-active");

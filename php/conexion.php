@@ -4,7 +4,7 @@ class DB{
     $host = "localhost";
     $name = "coins";
     $user = "root";
-    $pass = "";
+    $pass = "root";
 
     $conn = new mysqli($host, $user, $pass, $name);
 
