@@ -24,7 +24,7 @@ if (isset($_POST['btnC'])) {
   <title>Dashboard</title>
 </head>
 <body onload="deshabilitarBotones()">
-
+  <a href="creditos.php">Créditos</a>
   <section class="hero">
     <div class="shadow-head hero-head">
       <div class="navbar">
