@@ -460,7 +460,7 @@ if (isset($_POST['btnC'])) {
                               <div class="content is-size-7 color-oficial">
 
                                 Proyecto elaborado en la materia de Sistemas de Soporte a la Decisión con la asesoria del M.S.I. Francisco Javier Paulin Martinez
-                                <a>#FIF</a>. <a>#UAQ</a> <a>#Troyanos</a>
+                                <a>#FIF</a> <a>#UAQ</a> <a>#Troyanos</a>
 
                               </div>
                             </div>
