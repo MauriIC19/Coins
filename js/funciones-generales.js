@@ -1,6 +1,10 @@
+
+
+
 document.getElementById("navegacion-datos").addEventListener("click",mostrarContenidoFuncion);
 document.getElementById("navegacion-grafica").addEventListener("click",mostrarContenidoFuncion);
 document.getElementById("navegacion-indicador").addEventListener("click",mostrarContenidoFuncion);
+document.getElementById("navegacion-creditos").addEventListener("click",mostrarContenidoFuncion);
 
 function mostrarContenidoFuncion(){
   mostrarContenido(this.id);
@@ -13,6 +17,7 @@ function mostrarContenido(elemento){
 
     document.getElementById('ajustable-dos').classList.add("no-display");
     document.getElementById('ajustable-tres').classList.add("no-display");
+    document.getElementById('ajustable-cuatro').classList.add("no-display");
   }
 
   if(elemento == 'navegacion-grafica'){
@@ -20,6 +25,7 @@ function mostrarContenido(elemento){
 
     document.getElementById('ajustable-uno').classList.add("no-display");
     document.getElementById('ajustable-tres').classList.add("no-display");
+    document.getElementById('ajustable-cuatro').classList.add("no-display");
 
     setTimeout(function(){grafica.reflow(); }, 0);
 
@@ -30,9 +36,17 @@ function mostrarContenido(elemento){
 
     document.getElementById('ajustable-uno').classList.add("no-display");
     document.getElementById('ajustable-dos').classList.add("no-display");
+    document.getElementById('ajustable-cuatro').classList.add("no-display");
 
     setTimeout(function(){graficoKPI.reflow(); }, 0);
+  }
 
+  if(elemento == 'navegacion-creditos'){
+    document.getElementById('ajustable-cuatro').classList.remove("no-display");
+
+    document.getElementById('ajustable-uno').classList.add("no-display");
+    document.getElementById('ajustable-dos').classList.add("no-display");
+    document.getElementById('ajustable-tres').classList.add("no-display");
 
   }
 

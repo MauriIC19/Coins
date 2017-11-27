@@ -7,7 +7,7 @@ ptmac = []
 se = []
 errores = [];
 
-mejorPronostico = 0;
+mejorValor = 0;
 
 function cargarDatos(tipo){
 
@@ -188,7 +188,7 @@ function cargarPronostico(e, tipo){
           }
         };
         e.onclick = function (){
-        
+
             borrarTabla(e, tipo);
 
 
@@ -226,7 +226,7 @@ function cargarPronostico(e, tipo){
       e.onclick = function (){
 
           borrarTabla(e, tipo);
-generarTablaErrores(dJSON, tipo);
+
           document.getElementById("boton-pmd").innerHTML = "Calcular";
           document.getElementById("icono-pmd").classList.remove("filtro-activo");
           pmd = [];
@@ -258,7 +258,7 @@ generarTablaErrores(dJSON, tipo);
       e.onclick = function (){
 
           borrarTabla(e, tipo);
-generarTablaErrores(dJSON, tipo);
+
           document.getElementById("boton-pmda").innerHTML = "Calcular";
           document.getElementById("icono-pmda").classList.remove("filtro-activo");
           pmda = [];
@@ -285,7 +285,7 @@ generarTablaErrores(dJSON, tipo);
       e.onclick = function (){
 
           borrarTabla(e, tipo);
-generarTablaErrores(dJSON, tipo);
+
           document.getElementById("icono-ptmac").classList.remove("filtro-activo");
           ptmac = [];
           generarGrafica();
@@ -319,7 +319,7 @@ generarTablaErrores(dJSON, tipo);
       e.onclick = function (){
 
           borrarTabla(e, tipo);
-          generarTablaErrores(dJSON, tipo);
+
           document.getElementById("boton-se").innerHTML = "Calcular";
           document.getElementById("icono-se").classList.remove("filtro-activo");
           se = [];
@@ -346,7 +346,7 @@ generarTablaErrores(dJSON, tipo);
       e.onclick = function (){
 
           borrarTabla(e, tipo);
-          generarTablaErrores(dJSON, tipo);
+
           document.getElementById("icono-ps").classList.remove("filtro-activo");
           ps = [];
           generarGrafica();
@@ -532,6 +532,7 @@ function generarTablaErrores(dJSON, tipo){
       dJSON[n][1] ? cell5.innerHTML = parseFloat(dJSON[n][1]).toFixed(2) : cell5.innerHTML = "-";
       errores.push(tipo);
       errores.push(dJSON[n][1]);
+      errores.push(dJSON[n-1][0])
       getMejor(dJSON, tipo);
     }
     else{
@@ -543,27 +544,51 @@ function generarTablaErrores(dJSON, tipo){
 
 function getMejor(dJSON, tipo){
 
-  alert(errores)
-
   txt = document.getElementById('mejor');
   nums = [];
 
   if (dJSON == 1) {
-    errores.splice(errores.indexOf(tipo),2);
+    errores.splice(errores.indexOf(tipo),3);
   }
 
 
 
-  for (i = 1; i < errores.length; i+=2) {
+  for (i = 1; i < errores.length; i+=3) {
     nums.push(parseFloat(errores[i]));
   }
 
-
-
   nums = nums.sort(function(a,b){return a-b});
-alert(nums)
+
+  mejorPronostico = errores[errores.indexOf(nums[0])-1];
+  mejorValor =  Math.round(errores[errores.indexOf(nums[0])+1] * 100) / 100 
+
+  if (mejorPronostico == 'PS') {
+    mejorError = "Promedio Simple";
+  }
+
+  if (mejorPronostico == 'PMS') {
+    mejorError = "Promedio Móvil Simple";
+  }
+
+  if (mejorPronostico == 'PMD' ) {
+    mejorError = "Promedio Móvil Doble";
+  }
+
+  if (mejorPronostico == 'PMDA') {
+    mejorError = "Promedio Móvil Doble Ajustado";
+  }
+
+  if (mejorPronostico == 'SE') {
+    mejorError = "Suavización Exponencial";
+  }
+
+  if (mejorPronostico == 'PTMAC' ) {
+    mejorError = "Pronóstico de Tasa Media de Crecimiento";
+  }
+
+
   if (errores[errores.indexOf(nums[0])-1]) {
-    txt.innerHTML = "Mejor Pronóstico: "+errores[errores.indexOf(nums[0])-1];
+    txt.innerHTML = "Mejor Pronóstico: "+mejorError;
   }else{
     txt.innerHTML = "";
   }
@@ -763,7 +788,13 @@ function generarKPI(){
           type: 'solidgauge'
       },
 
-      title: null,
+      title: {
+          text: '¿Es un buen momento para invertir en ' + moneda + '?',
+          y:40,
+          style: {
+            fontSize: '16px'
+        }
+      },
 
       pane: {
           center: ['50%', '85%'],
@@ -793,10 +824,10 @@ function generarKPI(){
           minorTickInterval: null,
 
           title: {
-              y: -70
+
           },
           labels: {
-              y: 16
+
           }
       },
 
@@ -817,14 +848,12 @@ function generarKPI(){
       yAxis: {
           min: minimoKPI,
           max: maximoKPI,
-          title: {
-              text: '¿Es un buen momento para invertir en ' + moneda + '?'
-          }
+
       },
 
       series: [{
           name: 'RPM',
-          data: [4],
+          data: [mejorValor],
 
           tooltip: {
               valueSuffix: ' revolutions/min'
