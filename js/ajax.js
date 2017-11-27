@@ -1,16 +1,89 @@
 frecuencias = []
-ps = [] 
+ps = []
 pms = []
 pmd = []
 pmda = []
 ptmac = []
 se = []
+errores = [];
+
+mejorPronostico = 0;
 
 function cargarDatos(tipo){
 
+  if(tipo==0){
+      document.getElementById("texto-lista-opciones").innerHTML = "Ethereum";
+      maximoKPI = 500;
+      minimoKPI = 200;
+      moneda = "Ethereum"
+  }else{
+      document.getElementById("texto-lista-opciones").innerHTML = "Bitcoin";
+
+      maximoKPI = 10000;
+      minimoKPI = 5000;
+      moneda = "Bitcoin"
+  }
+
+  //Restablecer Botones de Filtros
+
+  //Promedio Simple
+
+  document.getElementById("icono-ps").classList.remove("filtro-activo");
+  document.getElementById("ps-principal").onclick = function (){
+      cargarPronostico(this, 'PS');
+  };
+
+  //Promedio Móvil Simple
+
+  document.getElementById("icono-pms").classList.remove("filtro-activo");
+  document.getElementById("boton-pms").innerHTML = "Calcular";
+  document.getElementById("kpms").value = "";
+  document.getElementById("boton-pms").onclick = function (){
+      cargarPronostico(this, 'PMS');
+  };
+
+  //Promedio Móvil Doble
+
+  document.getElementById("icono-pmd").classList.remove("filtro-activo");
+  document.getElementById("boton-pmd").innerHTML = "Calcular";
+  document.getElementById("kpmd").value = "";
+  document.getElementById("jpmd").value = "";
+  document.getElementById("boton-pmd").onclick = function (){
+      cargarPronostico(this, 'PMD');
+  };
+
+  //Promedio Móvil Doble Ajustado
+
+  document.getElementById("icono-pmda").classList.remove("filtro-activo");
+  document.getElementById("boton-pmda").innerHTML = "Calcular";
+  document.getElementById("kpmda").value = "";
+  document.getElementById("jpmda").value = "";
+  document.getElementById("mpmda").value = "";
+  document.getElementById("boton-pmda").onclick = function (){
+      cargarPronostico(this, 'PMDA');
+  };
+
+  //Suavicación Exponencial
+
+  document.getElementById("icono-se").classList.remove("filtro-activo");
+  document.getElementById("boton-se").innerHTML = "Calcular";
+  document.getElementById("kse").value = "";
+  document.getElementById("jse").value = "";
+  document.getElementById("mse").value = "";
+  document.getElementById("boton-se").onclick = function (){
+      cargarPronostico(this, 'SE');
+  };
+
+  //PTMAC
+
+  document.getElementById("icono-ptmac").classList.remove("filtro-activo");
+  document.getElementById("ptmac-principal").onclick = function (){
+      cargarPronostico(this, 'PTMAC');
+  };
+
   var periodo = []
   frecuencias = []
-  ps = [] 
+  ps = []
   pms = []
   pmd = []
   pmda = []
@@ -47,10 +120,11 @@ function cargarDatos(tipo){
      localStorage.setItem('datos', "[");
      localStorage.setItem('periodos', "");
      pushArrayFrecuencia(dJSON);
+
      if(frecuencias.indexOf(0) > -1){
-      document.getElementById("ptmac").setAttribute("disabled", true);
+      document.getElementById("ptmac-principal").classList.add("no-eventos");
      }else{
-      document.getElementById("ptmac").removeAttribute("disabled");
+      document.getElementById("ptmac-principal").classList.remove("no-eventos");
      }
      for (i = 0; i<dJSON.length; i++) {
        row = tabla.insertRow(i);
@@ -61,15 +135,22 @@ function cargarDatos(tipo){
        i+1 == dJSON.length ? localStorage.setItem('datos', localStorage.getItem('datos')+dJSON[i].frecuencia) : localStorage.setItem('datos', localStorage.getItem('datos')+dJSON[i].frecuencia+",");
        i+1 == dJSON.length ? localStorage.setItem('periodos', localStorage.getItem('periodos')+'"'+dJSON[i].periodo+'"') : localStorage.setItem('periodos', localStorage.getItem('periodos')+'"'+dJSON[i].periodo+'"'+",");
      }
+
      localStorage.setItem('datos', localStorage.getItem('datos')+"]");
      localStorage.getItem('Errores') ? localStorage.removeItem('Errores') : "";
      localStorage.setItem('Errores', '');
     }
   };
+
+
+
   btn = document.querySelectorAll('button');
   for (var i = 0; i < btn.length; i++) {
     btn[i].disabled = false;
   }
+
+  habilitarFiltros();
+
 }
 
 function pushArrayFrecuencia(dJSON){
@@ -78,12 +159,16 @@ function pushArrayFrecuencia(dJSON){
   }
   frecuencias.push("");
   generarGrafica();
-  generarKPI();
+
 }
 
 function cargarPronostico(e, tipo){
+
   switch (tipo) {
     case "PMS":
+
+      document.getElementById("boton-pms").innerHTML = "Eliminar";
+
       pms = []
       k = document.getElementById('kpms').value;
       if (k) {
@@ -94,13 +179,24 @@ function cargarPronostico(e, tipo){
         cargar.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             dJSON = JSON.parse(this.responseText);
+
+
+
             generarTabla(dJSON, tipo, k);
             pushArrayPMS(dJSON, k);
             generarTablaErrores(dJSON, tipo);
           }
         };
         e.onclick = function (){
+        
             borrarTabla(e, tipo);
+
+
+            document.getElementById("boton-pms").innerHTML = "Calcular";
+            document.getElementById("icono-pms").classList.remove("filtro-activo");
+            pms = [];
+            generarGrafica();
+
         };
       }
       else{
@@ -109,6 +205,9 @@ function cargarPronostico(e, tipo){
     break;
 
     case "PMD":
+
+      document.getElementById("boton-pmd").innerHTML = "Eliminar";
+
       pmd = []
       k = document.getElementById('kpmd').value;
       j = document.getElementById('jpmd').value;
@@ -125,11 +224,21 @@ function cargarPronostico(e, tipo){
         }
       };
       e.onclick = function (){
+
           borrarTabla(e, tipo);
+generarTablaErrores(dJSON, tipo);
+          document.getElementById("boton-pmd").innerHTML = "Calcular";
+          document.getElementById("icono-pmd").classList.remove("filtro-activo");
+          pmd = [];
+          generarGrafica();
+
       };
       break;
 
     case "PMDA":
+
+      document.getElementById("boton-pmda").innerHTML = "Eliminar";
+
       pmda = []
       k = document.getElementById('kpmda').value;
       j = document.getElementById('jpmda').value;
@@ -147,7 +256,14 @@ function cargarPronostico(e, tipo){
         }
       };
       e.onclick = function (){
+
           borrarTabla(e, tipo);
+generarTablaErrores(dJSON, tipo);
+          document.getElementById("boton-pmda").innerHTML = "Calcular";
+          document.getElementById("icono-pmda").classList.remove("filtro-activo");
+          pmda = [];
+          generarGrafica();
+
       };
       break;
 
@@ -163,14 +279,24 @@ function cargarPronostico(e, tipo){
           generarTabla(dJSON, tipo, 1);
           pushArrayPTMAC(dJSON);
           generarTablaErrores(dJSON, tipo);
+          document.getElementById("icono-ptmac").classList.add("filtro-activo");
         }
       };
       e.onclick = function (){
+
           borrarTabla(e, tipo);
+generarTablaErrores(dJSON, tipo);
+          document.getElementById("icono-ptmac").classList.remove("filtro-activo");
+          ptmac = [];
+          generarGrafica();
+
       };
       break;
 
     case "SE":
+
+      document.getElementById("boton-se").innerHTML = "Eliminar";
+
       se = []
       document.getElementById('kse').value ? k = document.getElementById('kse').value : k = null;
       document.getElementById('jse').value ? j = document.getElementById('jse').value : j = null;
@@ -191,7 +317,14 @@ function cargarPronostico(e, tipo){
         }
       };
       e.onclick = function (){
+
           borrarTabla(e, tipo);
+          generarTablaErrores(dJSON, tipo);
+          document.getElementById("boton-se").innerHTML = "Calcular";
+          document.getElementById("icono-se").classList.remove("filtro-activo");
+          se = [];
+          generarGrafica();
+
       };
       break;
 
@@ -207,10 +340,18 @@ function cargarPronostico(e, tipo){
           generarTabla(dJSON, tipo);
           pushArrayPs(dJSON)
           generarTablaErrores(dJSON, tipo);
+          document.getElementById("icono-ps").classList.add("filtro-activo");
         }
       };
       e.onclick = function (){
+
           borrarTabla(e, tipo);
+          generarTablaErrores(dJSON, tipo);
+          document.getElementById("icono-ps").classList.remove("filtro-activo");
+          ps = [];
+          generarGrafica();
+
+
       };
       break;
   }
@@ -222,6 +363,7 @@ function pushArrayPs(dJSON){
     ps.push(parseInt(dJSON[i][0]));
   }
   generarGrafica();
+
 }
 
 function pushArrayPMS(dJSON, k){
@@ -232,6 +374,7 @@ function pushArrayPMS(dJSON, k){
     pms.push(parseInt(dJSON[i][0]));
   }
   generarGrafica();
+
 }
 
 function pushArrayPMD(dJSON, k, j){
@@ -244,6 +387,7 @@ function pushArrayPMD(dJSON, k, j){
     pmd.push(parseInt(dJSON[i][0]));
   }
   generarGrafica();
+
 }
 
 function pushArrayPMDA(dJSON, k, j){
@@ -256,6 +400,7 @@ function pushArrayPMDA(dJSON, k, j){
     pmda.push(parseInt(dJSON[i][0]));
   }
   generarGrafica();
+
 }
 
 function pushArrayPTMAC(dJSON){
@@ -265,6 +410,7 @@ function pushArrayPTMAC(dJSON){
     ptmac.push(parseInt(dJSON[i][0]));
   }
   generarGrafica();
+
 }
 
 function pushArraySE(dJSON, k = null, j = null, tipo = null){
@@ -298,12 +444,14 @@ function pushArraySE(dJSON, k = null, j = null, tipo = null){
     se.push(parseInt(dJSON[i][0]));
   }
   generarGrafica();
+
 }
 
 
 function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
 
   generarGrafica()
+
   //Insertamos los títulos a la tabla
   headers = document.getElementById('titulos');
   cell1 = headers.insertCell();
@@ -314,16 +462,23 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
   cell1.classList.add(tipo);
   cell2.classList.add(tipo);
 
-  tabla = document.getElementById('datos');
-  row = tabla.insertRow();
-  row.insertCell();
-  row.insertCell();
+  n = parseInt(localStorage.getItem('n'));
+
+  if (document.querySelectorAll('#datos > tr').length < n +1) {
+    tabla = document.getElementById('datos');
+    row = tabla.insertRow();
+    cell1 = row.insertCell();
+    cell1.innerHTML = "2017-11-08"
+    cell2 = row.insertCell();
+    cell2.innerHTML = "-";
+  }
+
 
   //Variable que contiene la cantidad de frecuencias
-  n = Object.keys(dJSON).length;
+  //n = Object.keys(dJSON).length;
 
   //Volver n dinámica
-  for (i = 0; i < 119; i++) {
+  for (i = 0; i < n+1; i++) {
      row = tabla.rows[i];
      cell1 = row.insertCell();
      cell1.classList.add(tipo);
@@ -331,6 +486,8 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
      cell2.classList.add(tipo);
 
      if (dJSON[i]) {
+
+
 
        dJSON[i][0] ? cell1.innerHTML = parseFloat(dJSON[i][0]).toFixed(2) : cell1.innerHTML = "-";
        dJSON[i][1] ? cell2.innerHTML = parseFloat(dJSON[i][1]).toFixed(2) : cell2.innerHTML = "-";
@@ -340,12 +497,27 @@ function generarTabla(dJSON, tipo, k=null, j=null, m=null, a=null){
        cell2.innerHTML = "-";
      }
   }
+
+
+}
+
+function borrarUltimaFila(tableID) {
+/*
+  alert(tableID)
+
+    var table = document.getElementById(tableID);
+    var rowCount = table.rows.length;
+
+    table.deleteRow(rowCount -1);
+*/
 }
 
 function generarTablaErrores(dJSON, tipo){
+
   //Añadimos la clase para poder quitarlas después
   tablaE = document.getElementById('errores');
   n = parseInt(localStorage.getItem('n'))+1;
+
   row = tablaE.insertRow();
 
     cell3 = row.insertCell();
@@ -358,7 +530,8 @@ function generarTablaErrores(dJSON, tipo){
       tipo ? cell3.innerHTML = "<b>"+tipo+"</b>" : cell3.innerHTML = "-";
       dJSON[n][0] ? cell4.innerHTML = parseFloat(dJSON[n][0]).toFixed(2) : cell5.innerHTML = "-";
       dJSON[n][1] ? cell5.innerHTML = parseFloat(dJSON[n][1]).toFixed(2) : cell5.innerHTML = "-";
-      localStorage.getItem('Errores') ? "" : localStorage.setItem("Errores", tipo+','+dJSON[n][1]);
+      errores.push(tipo);
+      errores.push(dJSON[n][1]);
       getMejor(dJSON, tipo);
     }
     else{
@@ -369,34 +542,88 @@ function generarTablaErrores(dJSON, tipo){
 }
 
 function getMejor(dJSON, tipo){
+
+  alert(errores)
+
+  txt = document.getElementById('mejor');
+  nums = [];
+
+  if (dJSON == 1) {
+    errores.splice(errores.indexOf(tipo),2);
+  }
+
+
+
+  for (i = 1; i < errores.length; i+=2) {
+    nums.push(parseFloat(errores[i]));
+  }
+
+
+
+  nums = nums.sort(function(a,b){return a-b});
+alert(nums)
+  if (errores[errores.indexOf(nums[0])-1]) {
+    txt.innerHTML = "Mejor Pronóstico: "+errores[errores.indexOf(nums[0])-1];
+  }else{
+    txt.innerHTML = "";
+  }
+/*
   mejor = localStorage.getItem('Errores');
   error = mejor.split(',');
-  dJSON[n][1] < error[1] ? localStorage.setItem("Errores", '"'+tipo+'",'+dJSON[n][1]) : "";
+
+  dJSON[n][1] < error[1] ? localStorage.setItem("Errores", '"'+tipo+'",'+dJSON[n][1]+'",'+dJSON[n-1][0]) : "";
   mejor = localStorage.getItem('Errores');
   error = mejor.split(',');
   txt = document.getElementById('mejor');
-  txt.innerHTML = "Mejor Pronóstico: "+error[0];
+
+  if (error[0] == 'PS' || error[0] == '"PS"' ) {
+    mejorError = "Promedio Simple";
+  }
+
+  if (error[0] == 'PMS' || error[0] == '"PMS"') {
+    mejorError = "Promedio Móvil Simple";
+  }
+
+  if (error[0] == 'PMD' || error[0] == '"PMD"') {
+    mejorError = "Promedio Móvil Doble";
+  }
+
+  if (error[0] == 'PMDA' ||  error[0] == '"PMDA"') {
+    mejorError = "Promedio Móvil Doble Ajustado";
+  }
+
+  if (error[0] == 'SE' ||  error[0] == '"SE"') {
+    mejorError = "Suavización Exponencial";
+  }
+
+  if (error[0] == 'PTMAC' ||  error[0] == '"PTMAC"') {
+    mejorError = "Pronóstico de Tasa Media de Crecimiento";
+  }
+
+
+  txt.innerHTML = "Mejor Pronóstico: "+mejorError;
+  mejorPronostico = parseInt(error[2]);
+
+  //mejorValor = parseInt(dJSON[n-1][0]);
+*/
 }
 
 function borrarTabla(e, tipo){
+
   cells = document.querySelectorAll('.'+tipo);
   for (var i = 0; i < cells.length; i++) {
     cells[i].remove();
   }
-  mejor = localStorage.getItem('Errores');
-  pronostico = mejor.split(",");
-  pronostico[0] == tipo ? localStorage.removeItem('Errores') : "";
+  //mejor = localStorage.getItem('Errores');
+  //pronostico = mejor.split(",");
+  //pronostico[0] == tipo ? localStorage.removeItem('Errores') : "";
   e.onclick = function (){
       cargarPronostico(e, tipo);
   };
+  getMejor(1,tipo);
 }
 
-function deshabilitarBotones(){
-  btn = document.querySelectorAll('button');
-  for (var i = 5; i < btn.length; i++) {
-    btn[i].disabled = true;
-  }
-}
+
 
 function validateNumber(i, evt) {
   var theEvent = evt || window.event;
@@ -438,76 +665,28 @@ function validateNumber(i, evt) {
 /*------ Funciones Front End ------*/
 
 
-
-function activar_dropdown_pms(){
-  document.getElementById("promedio-movil-simple").classList.add("is-active");
-  document.getElementById("promedio-movil-simple-accion").setAttribute("onclick","desactivar_dropdown_pms()")
-}
-
-function desactivar_dropdown_pms(){
-  document.getElementById("promedio-movil-simple").classList.remove("is-active");
-  document.getElementById("promedio-movil-simple-accion").setAttribute("onclick","activar_dropdown_pms()")
-}
-
-function activar_dropdown_pms(){
-  document.getElementById("promedio-movil-simple").classList.add("is-active");
-  document.getElementById("promedio-movil-simple-accion").setAttribute("onclick","desactivar_dropdown_pms()")
-}
-
-function desactivar_dropdown_pms(){
-  document.getElementById("promedio-movil-simple").classList.remove("is-active");
-  document.getElementById("promedio-movil-simple-accion").setAttribute("onclick","activar_dropdown_pms()")
-}
-
-function activar_dropdown_pmd(){
-  document.getElementById("promedio-movil-doble").classList.add("is-active");
-  document.getElementById("promedio-movil-doble-accion").setAttribute("onclick","desactivar_dropdown_pmd()")
-}
-
-function desactivar_dropdown_pmd(){
-  document.getElementById("promedio-movil-doble").classList.remove("is-active");
-  document.getElementById("promedio-movil-doble-accion").setAttribute("onclick","activar_dropdown_pmd()")
-}
-
-function activar_dropdown_pmda(){
-  document.getElementById("promedio-movil-doble-ajustado").classList.add("is-active");
-  document.getElementById("promedio-movil-doble-ajustado-accion").setAttribute("onclick","desactivar_dropdown_pmda()")
-}
-
-function desactivar_dropdown_pmda(){
-  document.getElementById("promedio-movil-doble-ajustado").classList.remove("is-active");
-  document.getElementById("promedio-movil-doble-ajustado-accion").setAttribute("onclick","activar_dropdown_pmda()")
-}
-
-function activar_dropdown_se(){
-  document.getElementById("suavizacion-exponencial").classList.add("is-active");
-  document.getElementById("suavizacion-exponencial-accion").setAttribute("onclick","desactivar_dropdown_se()")
-}
-
-function desactivar_dropdown_se(){
-  document.getElementById("suavizacion-exponencial").classList.remove("is-active");
-  document.getElementById("suavizacion-exponencial-accion").setAttribute("onclick","activar_dropdown_se()")
-}
-
-function activar_dropdown_se_interno(){
-  document.getElementById("seleccionar-se").classList.add("is-active");
-  document.getElementById("seleccionar-se").setAttribute("onclick","desactivar_dropdown_se_interno()")
-}
-
-function desactivar_dropdown_se_interno(){
-  document.getElementById("seleccionar-se").classList.remove("is-active");
-  document.getElementById("seleccionar-se").setAttribute("onclick","activar_dropdown_se_interno()")
-}
-
 function generarGrafica(){
+
+
+
   //Datos de la gráfica
-  Highcharts.stockChart('grafica', {
+  grafica = Highcharts.stockChart('grafica', {
       rangeSelector: {
           selected: 1
       },
       title: {
           text: 'Pronósticos'
       },
+      xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
       plotOptions: {
         series: {
             pointStart: Date.UTC(2017, 6, 13),
@@ -565,10 +744,18 @@ function generarGrafica(){
           }
         }]
   });
+
+  setTimeout(function(){  generarKPI() }, 0);
+
+
+
 }
 
-
 function generarKPI(){
+
+
+  //mejorValor = parseInt(localStorage.getItem("MejorValor"));
+
 
   var gaugeOptions = {
 
@@ -604,7 +791,7 @@ function generarKPI(){
           ],
           lineWidth: 0,
           minorTickInterval: null,
-          tickAmount: 2,
+
           title: {
               y: -70
           },
@@ -624,44 +811,20 @@ function generarKPI(){
       }
   };
 
-  // The speed gauge
-  var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
-      yAxis: {
-          min: 0,
-          max: 200,
-          title: {
-              text: 'Speed'
-          }
-      },
-
-      credits: {
-          enabled: false
-      },
-
-      series: [{
-          name: 'Speed',
-          data: [80],
-
-          tooltip: {
-              valueSuffix: ' km/h'
-          }
-      }]
-
-  }));
 
   // The RPM gauge
-  var chartRpm = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
+  graficoKPI = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
       yAxis: {
-          min: 0,
-          max: 5,
+          min: minimoKPI,
+          max: maximoKPI,
           title: {
-              text: 'RPM'
+              text: '¿Es un buen momento para invertir en ' + moneda + '?'
           }
       },
 
       series: [{
           name: 'RPM',
-          data: [1],
+          data: [4],
 
           tooltip: {
               valueSuffix: ' revolutions/min'

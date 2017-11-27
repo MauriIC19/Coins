@@ -23,8 +23,8 @@ if (isset($_POST['btnC'])) {
     <title>Dashboard</title>
 </head>
 
-<body onload="deshabilitarBotones()">
-    <section class="hero">
+<body class="is-fullheight">
+    <section class="hero height-100">
         <div class="shadow-head hero-head">
             <div class="navbar">
                 <div class="container">
@@ -49,8 +49,8 @@ if (isset($_POST['btnC'])) {
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="contenedor-principal columns is-multiline">
+        <div class="container height-90">
+            <div class="height-95 contenedor-principal columns is-multiline">
                 <div class="titulo-dashboard column is-12">
                     <h1 class="title is-4">Dashboard</h1>
                 </div>
@@ -61,7 +61,7 @@ if (isset($_POST['btnC'])) {
                             <div id="seleccionar-criptodivisa" class="dropdown" onclick="activar_dropdown()">
                                 <div class="dropdown-trigger">
                                     <button id="boton-seleccionar-criptodivisa" class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                                        <span class="is-size-7">Lista de Opciones</span>
+                                        <span id="texto-lista-opciones" class="is-size-7">Lista de Opciones</span>
                                         <span class="icon is-small">
                       <i class="fa fa-angle-down" aria-hidden="true"></i>
                     </span>
@@ -83,125 +83,154 @@ if (isset($_POST['btnC'])) {
                                 </div>
                             </div>
                         </div>
+
+                        <div class="">
+
+                        </div>
+
+                        <div id="navegacion-datos" class="navegacion contenedor-criptodivisa column is-12 has-text-centered no-eventos">
+                            <figure class="image is-48x48 margen-automatico">
+                              <img src="img/tabla.png" alt="">
+                            </figure>
+                            <h4 class="is-size-7">Tabla de Datos</h4>
+                        </div>
+
+                        <div id="navegacion-grafica" class="navegacion contenedor-criptodivisa column is-12 has-text-centered no-eventos">
+                            <figure class="image is-48x48 margen-automatico">
+                              <img src="img/grafica.png" alt="">
+                            </figure>
+                            <h4 class="is-size-7">Gráfica</h4>
+                        </div>
+
+                        <div id="navegacion-indicador" class="navegacion contenedor-criptodivisa column is-12 has-text-centered no-eventos">
+                            <figure class="image is-48x48 margen-automatico">
+                              <img src="img/indicador.png" alt="">
+                            </figure>
+                            <h4 class="is-size-7">Indicador</h4>
+                        </div>
+
+                        <div class="navegacion contenedor-criptodivisa column is-12 has-text-centered">
+                            <h4 class="is-size-7">Créditos</h4>
+                        </div>
+
+                        <div class="navegacion contenedor-criptodivisa column is-12 has-text-centered">
+                            <h4 class="is-size-7">Cerrar Sesión</h4>
+                        </div>
                     </div>
+
                 </div>
-                <div class="column is-10">
-                    <div class="columns is-multiline">
-                        <div id="contenedor-general-derecha" class="column is-12">
-                            <div class="columns is-multiline">
-                                <div class="column is-12 is-size-7 contenedor-filtros">
+                <div class="height-95 column is-10 no-padding-top">
+                    <div class="height-100 columns is-multiline">
+                        <div id="contenedor-general-derecha" class="column is-12 no-padding-top">
+                            <div id="contenedor-general-derecha-interno" class="height-95 columns is-multiline">
+                                <div  class="column is-12 is-size-7 contenedor-filtros">
                                     <div class="columns is-multiline is-narrow">
-                                        <div class="column is-2 no-seleccionado " onclick="cargarPronostico(this, 'PS')">
-                                            <div class="navbar-item has-text-centered cursor-pointer">
+                                        <div id="ps-principal" class="column is-2 no-seleccionado ">
+                                            <div class="navbar-item filtro has-text-centered cursor-pointer">
                                                 <p class="margen-automatico">
                                                     <span class="icon is-small">
-                            <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                            <i id="icono-ps" class="fa fa-dot-circle-o " aria-hidden="true"></i>
                           </span><span>&nbsp&nbsp;P. Simple</span>
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="column is-2 no-seleccionado">
+                                        <div id="contenedor-promedio-movil-simple"  class="column is-2 no-seleccionado">
                                             <div id="promedio-movil-simple" class="navbar-item has-dropdown cursor-pointer">
                                                 <div id="promedio-movil-simple-accion" class="navbar-link margen-automatico" onclick="activar_dropdown_pms()">
                                                     <p> <span class="icon is-small">
-                              <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                              <i id="icono-pms" class="fa fa-dot-circle-o " aria-hidden="true"></i>
                             </span><span>&nbsp&nbsp;P.M. Simple</span></p>
                                                 </div>
-                                                <div class="auxiliares-contenedor navbar-dropdown is-size-7">
+                                                <div  class="auxiliares-contenedor navbar-dropdown is-size-7">
                                                     <div class="columns is-multiline has-text-centered">
                                                         <div class="column is-12">
-                                                            <h3>Auxiliares</h3>
+                                                            <h3 class="titulo-auxiliares-contenedor">Auxiliares</h3>
                                                         </div>
                                                         <div class="column is-12">
-                                                            <input id="kpms" type="text" name="" value="" placeholder="Ingrese K" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese K'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                            <h3>Valor de K</h3>
+                                                            <input id="kpms" type="text" name="" value="" placeholder="K" onfocus="this.placeholder = ''" onblur="this.placeholder = 'K'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
                                                         </div>
                                                         <div class="column is-12">
-                                                            <button type="button" class="boton-auxiliar" name="button" onclick="cargarPronostico(this, 'PMS')">Calcular</button>
+                                                            <button id="boton-pms" type="button" class="boton-auxiliar" name="button" onclick="cargarPronostico(this, 'PMS')">Calcular</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="column is-2 no-seleccionado">
+                                        <div id="contenedor-promedio-movil-doble" class="column is-2 no-seleccionado">
                                             <div id="promedio-movil-doble" class="navbar-item has-dropdown cursor-pointer">
                                                 <div id="promedio-movil-doble-accion" class="navbar-link margen-automatico" onclick="activar_dropdown_pmd()">
                                                     <p> <span class="icon is-small">
-                              <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                              <i id="icono-pmd" class="fa fa-dot-circle-o " aria-hidden="true"></i>
                             </span><span>&nbsp&nbsp;P.M. Doble</span>
                                                     </p>
                                                 </div>
                                                 <div class="auxiliares-contenedor navbar-dropdown is-size-7">
                                                     <div class="columns is-multiline has-text-centered">
                                                         <div class="column is-12">
-                                                            <h3>Auxiliares</h3>
+                                                            <h3 class="titulo-auxiliares-contenedor">Auxiliares</h3>
                                                         </div>
                                                         <div class="column is-12">
-                                                            <input id="kpmd" type="text" name="" value="" placeholder="Ingrese K" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese K'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                            <h3>Valor de K</h3>
+                                                            <input id="kpmd" type="text" name="" value="" placeholder="K" onfocus="this.placeholder = ''" onblur="this.placeholder = 'K'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
                                                         </div>
                                                         <div class="column is-12">
-                                                            <input id="jpmd" type="text" name="" value="" placeholder="Ingrese J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese J'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                              <h3>Valor de J</h3>
+                                                            <input id="jpmd" type="text" name="" value="" placeholder="J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'J'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
                                                         </div>
                                                         <div class="column is-12">
-                                                            <button type="button" class="boton-auxiliar" name="button" onclick="cargarPronostico(this, 'PMD')">Calcular</button>
+                                                            <button id="boton-pmd" type="button" class="boton-auxiliar" name="button">Calcular</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="column is-2 no-seleccionado">
+                                        <div id="contenedor-promedio-movil-doble-ajustado" class="column is-2 no-seleccionado">
                                             <div id="promedio-movil-doble-ajustado" class="navbar-item has-dropdown cursor-pointer">
                                                 <div id="promedio-movil-doble-ajustado-accion" class="navbar-link margen-automatico" onclick="activar_dropdown_pmda()">
                                                     <p>
                                                         <span class="icon is-small">
-                              <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                              <i id="icono-pmda" class="fa fa-dot-circle-o " aria-hidden="true"></i>
                             </span><span>&nbsp&nbsp;P.M.D. Aju.</span>
                                                     </p>
                                                 </div>
                                                 <div class="auxiliares-contenedor navbar-dropdown is-size-7">
                                                     <div class="columns is-multiline has-text-centered">
                                                         <div class="column is-12">
-                                                            <h3>Auxiliares</h3>
+                                                            <h3 class="titulo-auxiliares-contenedor">Auxiliares</h3>
                                                         </div>
                                                         <div class="column is-12">
-                                                            <input id="kpmda" type="text" name="" value="" placeholder="Ingrese K" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese K'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                            <h3>Valor de K</h3>
+                                                            <input id="kpmda" type="text" name="" value="" placeholder="K" onfocus="this.placeholder = ''" onblur="this.placeholder = 'K'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
                                                         </div>
                                                         <div class="column is-12">
-                                                            <input id="jpmda" type="text" name="" value="" placeholder="Ingrese J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese J'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                            <h3>Valor de J</h3>
+                                                            <input id="jpmda" type="text" name="" value="" placeholder="J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'J'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
                                                         </div>
                                                         <div class="column is-12">
-                                                            <input id="mpmda" type="text" name="" value="" placeholder="Ingrese M" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese M'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                              <h3>Valor de M</h3>
+                                                            <input id="mpmda" type="text" name="" value="" placeholder="M" onfocus="this.placeholder = ''" onblur="this.placeholder = 'M'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
                                                         </div>
                                                         <div class="column is-12">
-                                                            <button type="button" class="boton-auxiliar" name="button" onclick="cargarPronostico(this, 'PMDA')">Calcular</button>
+                                                            <button id="boton-pmda" type="button" class="boton-auxiliar" name="button">Calcular</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="column is-2 no-seleccionado">
+                                        <div id="contenedor-suvizacion-exponencial" class="column is-2 no-seleccionado">
                                             <div id="suavizacion-exponencial" class="navbar-item has-dropdown cursor-pointer">
                                                 <div id="suavizacion-exponencial-accion" class="navbar-link margen-automatico" onclick="activar_dropdown_se()">
                                                     <p> <span class="icon is-small">
-                              <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                              <i id="icono-se" class="fa fa-dot-circle-o " aria-hidden="true"></i>
                             </span><span>&nbsp&nbsp;S. Exp.</span></p>
                                                 </div>
                                                 <div class="auxiliares-contenedor navbar-dropdown is-size-7">
                                                     <div class="columns is-multiline has-text-centered">
                                                         <div class="column is-12">
-                                                            <h3>Auxiliares</h3>
+                                                            <h3 class="titulo-auxiliares-contenedor">Auxiliares</h3>
                                                         </div>
-                                                        <div class="column is-12">
-                                                            <input id="kse" type="text" name="" value="" placeholder="Ingrese K" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese K'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                                                        </div>
-                                                        <div class="column is-12">
-                                                            <input id="jse" type="text" name="" value="" placeholder="Ingrese J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese J'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                                                        </div>
-                                                        <div class="column is-12">
-                                                            <input id="mse" type="text" name="" value="" placeholder="Ingrese M" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese M'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                                                        </div>
-                                                        <div class="column is-12">
-                                                            <input id="ase" type="text" name="" value="" placeholder="Ingrese A" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese A'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
-                                                        </div>
+
                                                         <div class="column is-12">
                                                             <!--<select required id="p">
                                 <option value="" selected disabled hidden>Selecciona...</option>
@@ -222,68 +251,119 @@ if (isset($_POST['btnC'])) {
                                                                 </div>
                                                                 <div class="dropdown-menu has-text-left" id="dropdown-menu" role="menu">
                                                                     <div class="dropdown-content">
-                                                                        <a onclick="document.getElementById('lista-pronosticos').setAttribute('value','PS'); document.getElementById('lista-pronosticos').innerHTML = 'P. Simple'" class="dropdown-item is-size-7">
+                                                                        <a onclick="habilitarVariables('PS')" class="dropdown-item is-size-7">
                                       <span>&nbsp;P. Simple</span>
                                     </a>
-                                                                        <a onclick="document.getElementById('lista-pronosticos').setAttribute('value','PMS'); document.getElementById('lista-pronosticos').innerHTML = 'P. Móvil Simple'" class="dropdown-item is-size-7">
+                                                                        <a onclick="habilitarVariables('PMS')" class="dropdown-item is-size-7">
                                       <span>&nbsp;P. Móvil Simple</span>
                                     </a>
-                                                                        <a onclick="document.getElementById('lista-pronosticos').setAttribute('value','PMD'); document.getElementById('lista-pronosticos').innerHTML = 'P. Móbil Doble'" class="dropdown-item is-size-7">
+                                                                        <a onclick="habilitarVariables('PMD')" class="dropdown-item is-size-7">
                                       <span>&nbsp;P. Móvil Doble</span>
                                     </a>
-                                                                        <a onclick="document.getElementById('lista-pronosticos').setAttribute('value','PMDA'); document.getElementById('lista-pronosticos').innerHTML = 'P. M. Doble A.'" class="dropdown-item is-size-7">
+                                                                        <a onclick="habilitarVariables('PMDA')" class="dropdown-item is-size-7">
                                       <span>&nbsp;P. M. Doble A.</span>
                                     </a>
-                                                                        <a onclick="document.getElementById('lista-pronosticos').setAttribute('value','PTMAC'); document.getElementById('lista-pronosticos').innerHTML = 'P.T.M.A.C.'" class="dropdown-item is-size-7">
+                                                                        <a onclick="habilitarVariables('PTMAC')" class="dropdown-item is-size-7">
                                       <span>&nbsp;P.T.M.A.C.</span>
                                     </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="column is-12">
-                                                            <button type="button" class="boton-auxiliar" name="button" onclick="cargarPronostico(this, 'SE')">Calcular</button>
+
+
+                                                        <div id="contenedor-kse" class="no-display column is-12">
+                                                          <h3>Valor de K</h3>
+                                                            <input id="kse" type="text" name="" value="" placeholder="K" onfocus="this.placeholder = ''" onblur="this.placeholder = 'K'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                        </div>
+                                                        <div id="contenedor-jse" class="no-display column is-12">
+                                                            <h3>Valor de J</h3>
+                                                            <input id="jse" type="text" name="" value="" placeholder="J" onfocus="this.placeholder = ''" onblur="this.placeholder = 'J'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                        </div>
+                                                        <div id="contenedor-mse" class="no-display column is-12">
+                                                          <h3>Valor de M</h3>
+                                                            <input id="mse" type="text" name="" value="" placeholder="M" onfocus="this.placeholder = ''" onblur="this.placeholder = 'M'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                        </div>
+                                                        <div id="contenedor-ase" class="no-display column is-12">
+                                                            <h3>Valor de A</h3>
+                                                            <input id="ase" type="text" name="" value="" placeholder="A" onfocus="this.placeholder = ''" onblur="this.placeholder = 'A'" onkeypress="validateNumber(this, event)" onkeyup="validateNumber(this, event)">
+                                                        </div>
+
+                                                        <div id="contenedor-boton-se" class="no-display column is-12">
+                                                            <button id="boton-se" type="button" class="boton-auxiliar" name="button">Calcular</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="ptmac" class="column is-2 no-seleccionado" onclick="cargarPronostico(this, 'PTMAC')">
-                                            <div class="navbar-item cursor-pointer">
+                                        <div id="ptmac-principal"class="column is-2 no-seleccionado" onclick="cargarPronostico(this, 'PTMAC')">
+                                            <div class="navbar-item filtro cursor-pointer">
                                                 <p class="margen-automatico">
                                                     <span class="icon is-small ">
-                            <i class="fa fa-dot-circle-o " aria-hidden="true"></i>
+                            <i id="icono-ptmac" class="fa fa-dot-circle-o " aria-hidden="true"></i>
                         </span><span>&nbsp&nbsp;P.T.M.A.C.</span>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="column is-12 is-size-7">
-                                    <table id="tablaDatos" class="table is-striped">
-                                        <thead>
-                                            <tr id="titulos"></tr>
-                                        </thead>
-                                        <tbody id="datos"></tbody>
-                                    </table>
-                                </div>
-                                <div class="column is-12 is-size-7">
-                                    <table id="tablaErrores is-striped">
-                                        <thead>
-                                            <tr id="titulosErrores"></tr>
-                                        </thead>
-                                        <tbody id="errores"></tbody>
-                                    </table>
-                                </div>
-                                <div class="column is-12 is-size-7">
-                                    <div id="grafica" style="width:100%; height:400px;"></div>
-                                </div>
-                                <div class="column is-12 is-size-7">
-                                    <div style="width: 600px; height: 400px; margin: 0 auto">
-                                        <div id="container-speed" style="width: 300px; height: 200px; float: left"></div>
-                                        <div id="container-rpm" style="width: 300px; height: 200px; float: left"></div>
+
+
+                                <div class="height-100 contenido-ajustable column is-12">
+
+                                  <div class="columns is-multiline is narrow height-100">
+                                    <div id="ajustable-uno" class="height-100 column is-12">
+                                      <div id="contenedor-tablaDatos" class="height-75 overflow-y is-size-7">
+
+                                          <table id="tablaDatos" class="table is-striped">
+                                              <thead>
+                                                  <tr id="titulos"></tr>
+                                              </thead>
+                                              <tbody id="datos"></tbody>
+                                          </table>
+
+
+                                      </div>
+                                      <div id="contenedor-tablaErrores" class="height-25 overflow-y is-size-7">
+                                          <table id="tablaErrores" class="is-striped table">
+                                              <thead>
+                                                  <tr id="titulosErrores"></tr>
+                                              </thead>
+                                              <tbody id="errores"></tbody>
+                                          </table>
+                                      </div>
                                     </div>
+
+                                    <div id="ajustable-dos" class="height-100 no-display column is-12">
+
+                                      <button type="button" name="button" ></button>
+                                      <div class="height-100 is-size-7">
+                                          <div id="grafica" style="width:100%; height:100%;"></div>
+                                      </div>
+                                    </div>
+
+                                    <div id="ajustable-tres" class="no-display column is-12">
+                                      <div id="contenedor-kpi" class="height-85 is-size-7">
+                                          <div style="width: 100%; height: 100%; margin: 0 auto">
+                                              <div id="container-rpm" style="width: 100%; height: 100%; float: left"></div>
+                                          </div>
+                                      </div>
+
+                                        <div class="height-15 is-size-7 has-text-centered contenedor-mejor-pronostico">
+
+                                          <h2 id="mejor" class="title is-7"></h2>
+                                        </div>
+
+
+                                    </div>
+                                  </div>
+
+
+
+
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -315,9 +395,7 @@ if (isset($_POST['btnC'])) {
 
 
 -->
-                    <h2 id="mejor">
 
-          </h2>
                 </div>
             </div>
             <div>
@@ -326,6 +404,7 @@ if (isset($_POST['btnC'])) {
             </div>
         </div>
     </section>
+    <!--
     <div class="cerrar-sesion navbar-item">
         <form id="form-cerrar-sesion" action="#" method="POST">
             <figure class="">
@@ -335,6 +414,7 @@ if (isset($_POST['btnC'])) {
         </form>
     </div>
     <a href="creditos.php">Créditos</a>
+  -->
 </body>
 
 <script src="js/funciones-generales.js"></script>
