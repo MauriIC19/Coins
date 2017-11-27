@@ -37,7 +37,7 @@ if (isset($_POST['btnC'])) {
           <div id="navbarMenuHeroA" class="navbar-menu">
             <div class="navbar-end">
               <div class="navbar-item">
-                <span class="is-size-6 parte-uno-saludo">Hola,&nbsp;</span><span class="is-size-6 parte-dos-saludo">Luis Jorge</span>
+                <span class="is-size-6 parte-uno-saludo">Hola,&nbsp;</span><span class="is-size-6 parte-dos-saludo"><?=$_SESSION['name']?></span>
               </div>
               <div class="navbar-item">
                 <figure class="">
@@ -459,7 +459,7 @@ if (isset($_POST['btnC'])) {
                             <div class="card-content">
                               <div class="content is-size-7 color-oficial">
 
-                                Proyecto elaborado en la materia de Sistemas de Soporte a la Decisión con la asesoria del M.S.I. Francisco Javier Paulin Martinez
+                                Proyecto elaborado en la materia de Sistemas de Soporte a la Decisión con la asesoría del M.S.I. Francisco Javier Paulín Martínez
                                 <a>#FIF</a> <a>#UAQ</a> <a>#Troyanos</a>
 
                               </div>

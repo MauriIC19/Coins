@@ -81,8 +81,7 @@ if (isset($_POST['btn'])) {
         }
       }
       else{
-        echo "Usuario incorrecto";
-        //Commit de prueba
+        echo "<script>alert('Usuario y/o Contraseña Incorrectos')</script>";
       }
     }
 ?>

@@ -11,6 +11,8 @@ mejorValor = 0;
 
 function cargarDatos(tipo) {
 
+  getMejor(1);
+
   if (tipo == 0) {
     document.getElementById("texto-lista-opciones").innerHTML = "Ethereum";
     maximoKPI = 500;
@@ -20,7 +22,7 @@ function cargarDatos(tipo) {
     document.getElementById("texto-lista-opciones").innerHTML = "Bitcoin";
 
     maximoKPI = 10000;
-    minimoKPI = 5000;
+    minimoKPI = 3000;
     moneda = "Bitcoin"
   }
 
@@ -120,7 +122,6 @@ function cargarDatos(tipo) {
       localStorage.setItem('datos', "[");
       localStorage.setItem('periodos', "");
       pushArrayFrecuencia(dJSON);
-
       if (frecuencias.indexOf(0) > -1) {
         document.getElementById("ptmac-principal").classList.add("no-eventos");
       } else {
@@ -166,9 +167,6 @@ function cargarPronostico(e, tipo) {
 
   switch (tipo) {
     case "PMS":
-
-      document.getElementById("boton-pms").innerHTML = "Eliminar";
-
       pms = []
       k = document.getElementById('kpms').value;
       if (k) {
@@ -179,19 +177,14 @@ function cargarPronostico(e, tipo) {
         cargar.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             dJSON = JSON.parse(this.responseText);
-
-
-
             generarTabla(dJSON, tipo, k);
             pushArrayPMS(dJSON, k);
             generarTablaErrores(dJSON, tipo);
+            document.getElementById("boton-pms").innerHTML = "Eliminar";
           }
         };
         e.onclick = function() {
-
           borrarTabla(e, tipo);
-
-
           document.getElementById("boton-pms").innerHTML = "Calcular";
           document.getElementById("icono-pms").classList.remove("filtro-activo");
           pms = [];
@@ -204,66 +197,70 @@ function cargarPronostico(e, tipo) {
       break;
 
     case "PMD":
-
-      document.getElementById("boton-pmd").innerHTML = "Eliminar";
-
       pmd = []
       k = document.getElementById('kpmd').value;
       j = document.getElementById('jpmd').value;
-      var cargar = new XMLHttpRequest();
-      cargar.open("POST", "php/controlador.php?pronostico=" + tipo, true);
-      cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      cargar.send("data=" + localStorage.getItem('datos') + "&pronostico=" + tipo + "&n=" + localStorage.getItem('n') + "&k=" + k + "&j=" + j);
-      cargar.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          dJSON = JSON.parse(this.responseText);
-          generarTabla(dJSON, tipo, k, j);
-          pushArrayPMD(dJSON, k, j)
-          generarTablaErrores(dJSON, tipo);
-        }
-      };
-      e.onclick = function() {
+      if (k && j) {
+        var cargar = new XMLHttpRequest();
+        cargar.open("POST", "php/controlador.php?pronostico=" + tipo, true);
+        cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        cargar.send("data=" + localStorage.getItem('datos') + "&pronostico=" + tipo + "&n=" + localStorage.getItem('n') + "&k=" + k + "&j=" + j);
+        cargar.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            dJSON = JSON.parse(this.responseText);
+            generarTabla(dJSON, tipo, k, j);
+            pushArrayPMD(dJSON, k, j)
+            generarTablaErrores(dJSON, tipo);
+            document.getElementById("boton-pmd").innerHTML = "Eliminar";
+          }
+        };
+        e.onclick = function() {
 
-        borrarTabla(e, tipo);
+          borrarTabla(e, tipo);
 
-        document.getElementById("boton-pmd").innerHTML = "Calcular";
-        document.getElementById("icono-pmd").classList.remove("filtro-activo");
-        pmd = [];
-        generarGrafica();
+          document.getElementById("boton-pmd").innerHTML = "Calcular";
+          document.getElementById("icono-pmd").classList.remove("filtro-activo");
+          pmd = [];
+          generarGrafica();
 
-      };
+        };
+      }
+      else{
+        alert("Por favor, ingrese todos los campos");
+      }
       break;
 
     case "PMDA":
-
-      document.getElementById("boton-pmda").innerHTML = "Eliminar";
-
       pmda = []
       k = document.getElementById('kpmda').value;
       j = document.getElementById('jpmda').value;
       m = document.getElementById('mpmda').value;
-      var cargar = new XMLHttpRequest();
-      cargar.open("POST", "php/controlador.php?pronostico=" + tipo, true);
-      cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      cargar.send("data=" + localStorage.getItem('datos') + "&pronostico=" + tipo + "&n=" + localStorage.getItem('n') + "&k=" + k + "&j=" + j + "&m=" + m);
-      cargar.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          dJSON = JSON.parse(this.responseText);
-          generarTabla(dJSON, tipo, k, j, m);
-          pushArrayPMDA(dJSON, k, j)
-          generarTablaErrores(dJSON, tipo);
-        }
-      };
-      e.onclick = function() {
+      if (k && j && m) {
+        var cargar = new XMLHttpRequest();
+        cargar.open("POST", "php/controlador.php?pronostico=" + tipo, true);
+        cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        cargar.send("data=" + localStorage.getItem('datos') + "&pronostico=" + tipo + "&n=" + localStorage.getItem('n') + "&k=" + k + "&j=" + j + "&m=" + m);
+        cargar.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            dJSON = JSON.parse(this.responseText);
+            generarTabla(dJSON, tipo, k, j, m);
+            pushArrayPMDA(dJSON, k, j)
+            generarTablaErrores(dJSON, tipo);
+            document.getElementById("boton-pmda").innerHTML = "Eliminar";
+          }
+        };
+        e.onclick = function() {
+          borrarTabla(e, tipo);
+          document.getElementById("boton-pmda").innerHTML = "Calcular";
+          document.getElementById("icono-pmda").classList.remove("filtro-activo");
+          pmda = [];
+          generarGrafica();
 
-        borrarTabla(e, tipo);
-
-        document.getElementById("boton-pmda").innerHTML = "Calcular";
-        document.getElementById("icono-pmda").classList.remove("filtro-activo");
-        pmda = [];
-        generarGrafica();
-
-      };
+        };
+      }
+      else{
+        alert("Por favor, ingrese todos los campos");
+      }
       break;
 
     case "PTMAC":
@@ -294,8 +291,7 @@ function cargarPronostico(e, tipo) {
 
     case "SE":
 
-      document.getElementById("boton-se").innerHTML = "Eliminar";
-
+      validacion = false
       se = []
       document.getElementById('kse').value ? k = document.getElementById('kse').value : k = null;
       document.getElementById('jse').value ? j = document.getElementById('jse').value : j = null;
@@ -303,30 +299,66 @@ function cargarPronostico(e, tipo) {
       document.getElementById('ase').value ? a = parseFloat(document.getElementById('ase').value) : a = null;
       document.getElementById('lista-pronosticos').getAttribute("value") ? p = document.getElementById('lista-pronosticos').getAttribute("value") : p = null;
 
-      var cargar = new XMLHttpRequest();
-      cargar.open("POST", "php/controlador.php?pronostico=" + tipo, true);
-      cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      cargar.send("data=" + localStorage.getItem('datos') + "&pronostico=" + tipo + "&n=" + localStorage.getItem('n') + "&k=" + k + "&j=" + j + "&m=" + m + "&a=" + a + "&p=" + p);
-      cargar.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          dJSON = JSON.parse(this.responseText);
-          generarTabla(dJSON, tipo, k, j, m, a);
-          pushArraySE(dJSON, k, j, p)
-          generarTablaErrores(dJSON, tipo);
-        }
-      };
-      e.onclick = function() {
+      switch(p){
+        case 'PS':
+          if (a) {
+            validacion = true
+          }
+          break;
+        case 'PTMAC':
+          if (a) {
+            validacion = true
+          }
+          break;
+        case 'PMS':
+          if (k && a) {
+            validacion = true
+          }
+          break;
+        case 'PMD':
+          if (k && j && a) {
+            validacion = true
+          }
+          break;
+        case 'PMDA':
+          if (k && j && m && a) {
+            validacion = true
+          }
+          break;
 
-        borrarTabla(e, tipo);
+        default:
+          validacion = false
+          break;
+      }
+      if (validacion) {
+        var cargar = new XMLHttpRequest();
+        cargar.open("POST", "php/controlador.php?pronostico=" + tipo, true);
+        cargar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        cargar.send("data=" + localStorage.getItem('datos') + "&pronostico=" + tipo + "&n=" + localStorage.getItem('n') + "&k=" + k + "&j=" + j + "&m=" + m + "&a=" + a + "&p=" + p);
+        cargar.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("boton-se").innerHTML = "Eliminar";
+            dJSON = JSON.parse(this.responseText);
+            generarTabla(dJSON, tipo, k, j, m, a);
+            pushArraySE(dJSON, k, j, p)
+            generarTablaErrores(dJSON, tipo);
+          }
+        };
+        e.onclick = function() {
 
-        document.getElementById("boton-se").innerHTML = "Calcular";
-        document.getElementById("icono-se").classList.remove("filtro-activo");
-        se = [];
-        generarGrafica();
+          borrarTabla(e, tipo);
 
-      };
+          document.getElementById("boton-se").innerHTML = "Calcular";
+          document.getElementById("icono-se").classList.remove("filtro-activo");
+          se = [];
+          generarGrafica();
+
+        };
+      }
+      else{
+        alert("Por favor, ingrese todos los campos");
+      }
       break;
-
     default:
       ps = []
       var cargar = new XMLHttpRequest();
@@ -467,7 +499,29 @@ function generarTabla(dJSON, tipo, k = null, j = null, m = null, a = null) {
     tabla = document.getElementById('datos');
     row = tabla.insertRow();
     cell1 = row.insertCell();
-    cell1.innerHTML = "2017-11-08"
+
+    fechas = localStorage.getItem("periodos");
+    fechas = fechas.split(",");
+
+    ultimaFecha = new Date(fechas[n-1]);
+
+    ultimaFecha.setDate(ultimaFecha.getDate() + 1);
+
+    if (ultimaFecha.getDate() < 10) {
+      dia = '0' + ultimaFecha.getDate();
+    }else{
+      dia = ultimaFecha.getDate();
+    }
+
+     if ((ultimaFecha.getMonth()+1) < 10) {
+      mes = '0' + (ultimaFecha.getMonth()+1);
+    }else{
+      mes = (ultimaFecha.getMonth()+1);
+    }
+
+    ultimaFecha = ultimaFecha.getFullYear() + "-" + mes + "-" + dia;
+
+    cell1.innerHTML = ultimaFecha;
     cell2 = row.insertCell();
     cell2.innerHTML = "-";
   }
@@ -528,15 +582,19 @@ function generarTablaErrores(dJSON, tipo) {
   }
 }
 
-function getMejor(dJSON, tipo) {
+function getMejor(dJSON, tipo=null) {
+
+  if (!tipo) {
+    errores = [];
+    mejorError = "";
+  }
 
   txt = document.getElementById('mejor');
   nums = [];
 
-  if (dJSON == 1) {
+  if (dJSON == 1 && tipo) {
     errores.splice(errores.indexOf(tipo), 3);
   }
-
 
 
   for (i = 1; i < errores.length; i += 3) {
@@ -579,6 +637,9 @@ function getMejor(dJSON, tipo) {
     txt.innerHTML = "Mejor Pronóstico: " + mejorError;
   } else {
     txt.innerHTML = "";
+  }
+  if (document.getElementById("ptmac-principal").classList.contains("no-eventos") && txt.innerHTML != '') {
+    txt.innerHTML += " sin considerar PTMAC";
   }
 }
 
