@@ -1,43 +1,51 @@
-.field{
+.box {
+  border: solid 1px #F4F4F4;
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+.field {
   padding-top: 1.5rem;
 }
 
-.input{
-  border: none;
-    border-bottom: solid 1px #F0F0F0;
-    width: 70%;
-    text-align: center;
-    padding: 5px;
-    color: #7D7D7D;
-    box-shadow: none !important;
-}
-
-.input:focus, .input:hover{
+.input {
   border: none;
   border-bottom: solid 1px #F0F0F0;
-    box-shadow: none !important;
+  padding: 5px;
+  color: #7D7D7D;
+  box-shadow: none !important;
 }
 
-#boton-login{
+.input:focus, .input:hover {
+  border: none;
+  border-bottom: solid 1px #F0F0F0;
+  box-shadow: none !important;
+}
+
+.control.has-icons-left .input, .control.has-icons-left .select select {
+  padding-left: 2.25em !important;
+}
+
+#boton-login {
   color: white;
-    border: none;
-    background: #40C6E3;
-    width: 50%;
-    border-radius: 5px;
-    padding: 7.5px;
-    box-sizing: content-box;
-    cursor: pointer;
-    margin-top: 0.75rem;
+  border: none;
+  background: #40C6E3;
+  width: 50%;
+  border-radius: 5px;
+  padding: 7.5px;
+  box-sizing: content-box;
+  cursor: pointer;
+  margin-top: 0.75rem;
 }
 
-#particles-js{
+#particles-js {
   background: white !important;
 }
 
-.particles-js-canvas-el{
+.particles-js-canvas-el {
   position: absolute !important;
 }
 
-.hero-body{
+.hero-body {
   z-index: 9999;
 }
